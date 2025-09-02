@@ -1,0 +1,15 @@
+/* fonts.css */
+@font-face {
+	font-family: 'Inter_18pt';
+	src: url('../fonts/Inter_18pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter_24pt';
+	src: url('../fonts/Inter_24pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter_28pt';
+	src: url('../fonts/Inter_28pt-Regular.ttf') format('truetype');
+}

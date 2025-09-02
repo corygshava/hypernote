@@ -1,0 +1,7 @@
+@media(max-width:768px){
+    .grid-50-50,.grid-70-30,.grid-30-70{grid-template-columns:1fr !important;}
+    .section{padding-block: 4rem;}
+}
+@media(max-width: 600px){
+    .hedtxt{font-size: 3rem;}
+}
