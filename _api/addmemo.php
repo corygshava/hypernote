@@ -20,8 +20,10 @@ $title = trim($_POST['title']);
 $message = trim($_POST['message']);
 $key = trim($_POST['key']);
 
+$thepass = file_get_contents('knlijnewiurengienrgejrgjkreng_pass.txt');
+
 // Check access key
-if ($key !== "strong_passwird") {
+if ($key !== $thepass) {
     respond(false, "Invalid access key.");
 }
 
