@@ -1,0 +1,11 @@
+.s-autobutton-i,.s-autobtn-ii,.s-autobtn-iii,
+.s-autobtn-0 {appearance: none;border: 2px solid #555;background-color: #e0e0e0;color: #000;font-family: Arial, sans-serif;font-size: 14px;padding: 5px 12px;margin: 0;border-radius: 0;cursor: pointer;box-shadow: none;text-shadow: none;}
+
+.s-autobtn-0:hover {background-color: #d5d5d5;}
+
+.s-autobtn-0:active {background-color: #c0c0c0;border-color: #444;}
+
+.s-autobutton-i{background:rgba(0,0,0,0.4);color: #fefefe;padding:5px;}
+.s-autobtn-ii{padding: 12px 20px;border:none;border-radius: 25px;}
+.s-autobtn-iii{border: none;padding: 7px;background-color: transparent;color: #fff;}
+.cool-pink{#e91e63}
