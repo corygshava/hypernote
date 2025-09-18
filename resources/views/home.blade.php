@@ -13,15 +13,17 @@
     <link rel="stylesheet" href="_assets/css/coryG_base.css">
 </head>
 <body>
-    <div class="formguy spacy-md">
-        <h2>register</h2>
-        <form action="./register" method="post">
-            @csrf
-            <input type="text" name="name" id="name" placeholder="enter name 1">
-            <input type="text" name="email" id="email" placeholder="enter email 2">
-            <input type="text" name="password" id="password" placeholder="enter password 3">
-            <button class="btn primary"><i class="fa fa-paper-plane"></i></button>
-        </form>
+    <div class="content flow centroid">
+        <div class="formguy spacy-md mycon">
+            <h2>register</h2>
+            <form action="./register" method="post">
+                @csrf
+                <input class="w3-input spacy-tn distance-md" type="text" name="name" id="name" placeholder="enter name 1">
+                <input class="w3-input spacy-tn distance-md" type="email" name="email" id="email" placeholder="enter email 2">
+                <input class="w3-input spacy-tn distance-md" type="password" name="password" id="password" placeholder="enter password 3">
+                <button class="btn primary w-100">register your account <i class="fa fa-paper-plane"></i></button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
