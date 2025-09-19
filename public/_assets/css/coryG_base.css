@@ -97,7 +97,7 @@ img{
 			width: 100%;
 			text-transform: capitalize;
 		}
-		.hedtxt,.h1{
+		.hedtxt,.hedtxt1,.h1{
 			font-size: min(var(--size-mg),14vw);
 		}
 		.hedtxt2,.h2{
@@ -106,7 +106,7 @@ img{
 		.hedtxt3,.h3{
 			font-size: min(var(--size-md,1.75vw));
 		}
-		.hedtxt b,.h1 b,.hedtxt2 b,.hedtxt3 b,.h2 b{color: var(--themecolor);}
+		.hedtxt b,.hedtxt1 b,.hedtxt2 b,.hedtxt3 b,.h1 b,.h2 b,.h3 b{color: var(--themecolor);}
 
 	/* ------------ 1. Buttons -------------- */
 		.btn{
@@ -120,12 +120,12 @@ img{
 			cursor:pointer;
 			border:none;
 		}
-		.btn:active{scale:1.2;}
-		.btn.primary{background:var(--seccolor);color:#fff}
+		.btn:active{scale:1.1;}
+		.btn.active,.btn.primary{background:var(--seccolor) !important;color:#fff !important;border: 1px solid transparent !important;}
 		.btn.primary:hover{background:var(--clr-theme-dark);transform:translateY(-1px);box-shadow:var(--shadow-md)}
 		.btn.outline{background:transparent;color:var(--themecolor);border:1px solid var(--themecolor)}
 		.btn.outline.light{background:transparent;color:var(--seccolor);border:1px solid var(--seccolor)}
-		.btn.outline:hover{background:var(--seccolor);color:#fff}
+		.btn.outline:hover{background:var(--seccolor);color:#fff;border: 1px solid var(--seccolor);}
 
 	/* ------------ 2. navbar --------------- */
 		nav{
@@ -157,6 +157,7 @@ img{
 			gap: 12px;
 		}
 		nav .navcon .navlinks{
+			--w: 12px;
 			/*padding: 32px;*/
 		}
 		nav .navcon .navlinks a{
@@ -294,6 +295,16 @@ img{
 	.flowline.right{
 		justify-content: flex-end;
 	}
+
+	.stack{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+	.overflow-safe{
+		flex-wrap: wrap;
+	}
+
 	.gap-sm{gap: var(--size-sm) !important;}
 	.gap-nm{gap: var(--size-nm) !important;}
 	.gap-md{gap: var(--size-md) !important;}
@@ -332,7 +343,6 @@ img{
 
 	.centroid{
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}

@@ -105,3 +105,6 @@
 	.hidetop{
 		pointer-events: none;
 	}
+
+/* script based */
+	[data-shown="0"]{display: none;}

@@ -1,6 +1,15 @@
 /* formcards */
-    .formguy{
+    .formguy,.mycon{
         min-width: 200px;
         max-width: 400px;
-        width: 96vw;
+        width: 96vw !important;
+    }
+
+/* posts */
+    .postbox{
+        border-radius: var(--roundness);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        position: relative;
     }

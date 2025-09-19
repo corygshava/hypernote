@@ -11,7 +11,7 @@ class userops extends Controller{
         $indata = $req->validate([
             "name" => ['required', 'min:3', 'max:16', Rule::unique('users', 'name')],
             "email" => ['required', 'email', Rule::unique('users', 'email')],
-            "password" => ['required', 'min:8','max:32']
+            "password" => ['required', 'min:5','max:32']
         ]);
 
         $upass = $indata['password'];
@@ -20,12 +20,31 @@ class userops extends Controller{
         $user = User::create($indata);
         auth()->login($user);
 
-        return redirect('/');
+        return redirect('/')->with('success','login successful');
     }
 
     public function logout(){
         auth()->logout();
 
-        return redirect('/');
+        return redirect('/')->with('success','logout successful');
+    }
+
+    public function login(Request $req){
+        $indata = $req->validate([
+            "username" => "required",
+            "password" => "required"
+        ]);
+
+        $passdata = ['name' => $indata['username'],'password' => $indata['password']];
+
+        if(auth()->attempt($passdata)){
+            $req->session()->regenerate();
+            return redirect('/')->with('success','login successful');
+        } else {
+            return redirect()->back()->withErrors([
+                "name" => "incorrect login details"
+            ]);
+        }
+
     }
 }

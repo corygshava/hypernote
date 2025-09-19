@@ -1,0 +1,4 @@
+:root{
+	--s-themecolor: var(--themecolor,dodgerblue);
+	--s-accent: var(--s-themecolor);
+}
