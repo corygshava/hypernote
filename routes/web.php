@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::post('/register', [userops::class,'register']);
+Route::post('/logout', [userops::class,'logout']);
