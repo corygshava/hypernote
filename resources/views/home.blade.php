@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Postavar - home</title>
     
     <link rel="shortcut icon" href="lrvl icon.png" type="image/png">
     <link rel="stylesheet" href="_assets/BS4/css/bootstrap.min.css">
@@ -30,42 +30,41 @@
 <body>
     @auth
         {{-- if a user session exists --}}
+
+        {{-- get deets --}}
+        <?php
+            $user = Auth::user();
+            $uname = $user->name;
+        ?>
+
+        <script>
         @if (session('success'))
-            <script>
-                alert_success(`{{ session('success') }}`);
-            </script>
+            alert_success(`{{ session('success') }}`);
+        @endif
+        @if (session('danger'))
+            alert_danger(`{{ session('danger') }}`);
         @endif
 
         {{-- error handling --}}
 
         @if ($errors->any())
-            <script>
-                @foreach ($errors->all() as $err)
-                    alert_danger(`{{$err}}`);
-                @endforeach
-            </script>
+            @foreach ($errors->all() as $err)
+                alert_danger(`{{$err}}`);
+            @endforeach
         @endif
+        </script>
 
         <div class="flow centroid">
             <div class="formguy spacy-md mycon w3-center">
-                <span class="h3">You are logged in</span>
-                <form action="./logout" method="post" class="spacy-md">
+                <span class="h3">Welcome <b class="themetxt">{{ $uname }}</b></span>
+                <button class="btn outline" data-toggler="#newpostmodal" data-onshow="flex"><i class="fa fa-plus"></i> create post</button>
+                <form action="./logout" method="post" class="spacy-sm d-i-b">
                     @csrf
-                    <button href="./logout" class="btn outline">logout</button>
-                    <a href="./posts" class="btn outline">view posts</a>
+                    <button href="./logout" class="btn outline"><i class="fa fa-user-slash"></i> logout</button>
+                    <!-- <a href="./posts" class="btn outline">view posts</a> -->
                 </form>
             </div>
         </div>
-        
-        <div class="flow centroid">
-            <div class="formguy spacy-md mycon w3-center">
-                <span class="h3">new post</span>
-                <div class="spacy-md">
-                    <button class="btn outline" data-toggler="#newpostmodal" data-onshow="flex"><i class="fa fa-plus"></i> create post</button>
-                </div>
-            </div>
-        </div>
-        
         <hr>
 
         <div class="stack centroid gap-md spacy-md">
@@ -77,12 +76,22 @@
             @if (count($posts))
                 <?php //print_r($posts);?>
                 @foreach ($posts as $post)
+                    <?php
+                        $body = str_replace("\n", "<br>", $post['body']);
+                    ?>
                     <div class="spacy-sm panelbg postbox mycon w3-card">
-                        <span class="h3">{{ $post['title'] }}</span>
-                        <p>{{ $post['body'] }}</p>
-                        <p>
+                        <div>
+                            <span class="text-gld">by <b class="themetxt">{{ $post->myuser->name }}</b> <br>on <b class="themetxt">{{ $post['created_at'] }}</b></span>
+                            <span class="h3">{{ $post['title'] }}</span>
+                            <hr class="mutedstroke">
+                        </div>
+                        <div>
+                            <div><?=$body?></div>
+                        </div>
+                        <div class="spacy-sm">
+                            <span class="text-muted text-gld distance-tn w3-block">item created on <b class="themetxt">{{ $post['created_at'] }}</b></span>
                             <a href="./edit-post/{{ $post['id'] }}" class="btn outline"><i class="fa fa-edit"></i> Edit post</a>
-                        </p>
+                        </div>
                         <form action="./delete-post/{{ $post['id'] }}" method="post" class="w3-display-topright spacy-sm">
                             @csrf
                             @method('DELETE')

@@ -25,5 +25,15 @@ Route::post('/login', [userops::class,'login']);
 Route::post('/logout', [userops::class,'logout']);
 
 // Blog post routes
-Route::post('/mek-post', [PostController::class,'mekpost']);
+Route::post('/mek-post', [PostController::class,'mek_post']);
 Route::get('/edit-post/{post}', [PostController::class,'showEditScreen']);
+Route::put('/edit-post/{post}', [PostController::class,'update_post']);
+Route::delete('/delete-post/{post}', [PostController::class,'delete_post']);
+
+// feed requests
+Route::get('/posts', function () {
+    // $allposts = Post::all();
+    $allposts = Post::where('privacy_state', auth()->id())->get();
+
+    return view('feed', ['posts' => $allposts]);
+});
