@@ -1,38 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <base href="../">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Post</title>
-    
-    <link rel="shortcut icon" href="lrvl icon.png" type="image/png">
-    <link rel="stylesheet" href="_assets/BS4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="_assets/css/fa-all.css">
-    <link rel="stylesheet" href="_assets/css/styles.css">
-    <link rel="stylesheet" href="_assets/css/w3.css">
-    <link rel="stylesheet" href="_assets/css/coryG_base.css">
-    <link rel="stylesheet" href="_assets/css/coryG_UIOps.css">
-    <link rel="stylesheet" href="_assets/css/animations.css">
-    <link rel="stylesheet" href="_assets/css/fonts.css">
+<x-layout>
+    <x-slot:title>s</x-slot:title>
+    <x-slot:basehref>../</x-slot:basehref>
+    <x-slot:goback>yes</x-slot:goback>
+    <x-slot:pagename>Edit post</x-slot:pagename>
 
-    <!-- s-auto -->
-    <link rel="stylesheet" href="_assets/css/s-auto.css">
-    <link rel="stylesheet" href="_assets/css/s-auto/autoforms.css">
-
-    <!-- Bootstrap JS (Optional) -->
-    <script src="_assets/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="_assets/bs4/js/bootstrap.bundle.min.js"></script>
-    <script src="_assets/js/SuperScript.js"></script>
-    <script src="_assets/js/toappend.js"></script>
-    <script src="_assets/js/coryG_UIOps.js"></script>
-    <script src="_assets/js/customalerter.js"></script>
-</head>
-<body>
     @auth
-        <div class="w3-top spacy-md">
-            <a href="javascript:history.back()" class="btn outline"><i class="fa fa-chevron-left"></i> go back</a>
-        </div>
         <div class="content fullheight t3">
             <div class="formguy spacy-md mycon w3-center slide-in-bottom">
                 <span class="h3">Edit Post</span>
@@ -78,5 +50,4 @@
     @else
         <div>Login first</div>
     @endauth
-</body>
-</html>
+</x-layout>

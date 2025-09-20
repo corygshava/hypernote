@@ -10,8 +10,12 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>{{ $appname }} - {{ $title }}</title>
 
+	@if (isset($basehref))
+		<base href="{{$basehref}}">
+	@endif
+
 	
-	<link rel="shortcut icon" href="lrvl icon.png" type="image/png">
+	<link rel="shortcut icon" href="favicon.png" type="image/png">
 	<link rel="stylesheet" href="_assets/BS4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="_assets/css/fa-all.css">
 	<link rel="stylesheet" href="_assets/css/styles.css">
@@ -34,6 +38,9 @@
 	<script src="_assets/js/customalerter.js"></script>
 
 	<style>
+		.content{
+			min-height: 80vh;
+		}
 		.topbar{
 			position: sticky;
 			top: 0;
@@ -53,7 +60,7 @@
 		}
 
 		.postbox:not(.v2) {
-			flex: 0 0 400px;
+			flex: 0 0 300px;
 			position: relative;
 			background: var(--clr-panelbg);
 			border: 1px solid var(--clr-darkglass);
@@ -97,6 +104,7 @@
 
 		$shownav = isset($role) ? !(in_array($role,$hidenav)) : true;
 		$isspecial = isset($role) ? in_array($role,$special) : false;
+		$pname = isset($pagename) ? $pagename : 'All posts';
 
 		// echo !isset($role) ? "its not up" : "it is";
 	?>
@@ -106,7 +114,10 @@
 		@if ($shownav)
 			<div class="spacy-sm topbar flowline spread">
 				<div class="flowline gap-sm centroid">
-					<b class="themetxt">{{ $appname }} - All posts</b>
+					@if (isset($goback) && $goback == "yes")
+						<a href="javascript:history.back()" class="btn outline"><i class="fa fa-chevron-left"></i></a>
+					@endif
+					<b class="themetxt">{{ $appname }} - {{ $pname }}</b>
 				</div>
 				<div>
 					@if ($isspecial)
