@@ -31,9 +31,6 @@ Route::put('/edit-post/{post}', [PostController::class,'update_post']);
 Route::delete('/delete-post/{post}', [PostController::class,'delete_post']);
 
 // feed requests
-Route::get('/posts', function () {
-    // $allposts = Post::all();
-    $allposts = Post::where('privacy_state', auth()->id())->get();
+Route::get('/posts', [PostController::class, 'show_public_posts']);
+Route::get('/feed', [PostController::class, 'show_public_posts']);
 
-    return view('feed', ['posts' => $allposts]);
-});

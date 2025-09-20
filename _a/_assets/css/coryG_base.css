@@ -27,9 +27,9 @@
 }
 
 :root {
-	--themecolor: #bb46e9;   /* main lavender / purple */
-    --seccolor: #7966ce;     /* softer secondary lavender */
-    --darkcolor: #6a1b9a;    /* deeper accent shade */
+	--themecolor: #fd5a0f;   /* main lavender / purple */
+    --seccolor: #cda537;     /* softer secondary lavender */
+    --darkcolor: #9a2a1b;    /* deeper accent shade */
 	--clr-theme-dark: var(--darkcolor);
 
 	--themeglow: 0 0 16px var(--themecolor);
@@ -295,6 +295,9 @@ img{
 	}
 	.flowline.right{
 		justify-content: flex-end;
+	}
+	.spread{
+		justify-content: space-between;
 	}
 
 	.stack{

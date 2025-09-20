@@ -1,0 +1,136 @@
+/* ---------- Post Card Base ---------- */
+.posts_list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-sm);              /* gap-sm */
+}
+
+.postbox {
+    position: relative;
+    background: var(--clr-panelbg);
+    border: 1px solid var(--clr-darkglass);
+    border-radius: var(--roundness);
+    padding: var(--size-sm);          /* spacy-sm */
+    box-shadow: var(--themeshadow);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.postbox:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--themeglow);
+}
+
+/* ---------- Header Row ---------- */
+.postbox > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-tn);              /* gap-tn */
+}
+
+.postbox .h3 {
+    font-size: var(--size-nm);        /* text-nm */
+    color: var(--themecolor);
+    font-weight: 600;
+    margin: var(--size-tn) 0;
+}
+
+.mutedstroke {
+    border: none;
+    border-top: 1px solid var(--clr-darkglass);
+    margin: var(--size-tn) 0;
+}
+
+/* ---------- Meta ---------- */
+.text-gld {
+    font-size: var(--size-gld);       /* text-gld */
+    color: var(--clr-text-muted);
+}
+
+.themetxt {
+    color: var(--themecolor);
+}
+
+/* ---------- Content ---------- */
+.postbox > div:nth-child(2) {
+    margin: var(--size-sm) 0;         /* distance-sm */
+    color: var(--clr-text);
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* ---------- Footer ---------- */
+.postbox > div:nth-child(3) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--size-tn);              /* gap-tn */
+}
+
+.w3-block {
+    display: block;
+}
+
+.distance-tn {
+    margin-top: var(--size-tn);
+    margin-bottom: var(--size-tn);
+}
+
+/* ---------- Buttons ---------- */
+.btn.outline {
+    background: transparent;
+    border: 1px solid var(--themecolor);
+    color: var(--themecolor);
+    padding: var(--size-tn) var(--size-gld);
+    border-radius: var(--roundness);
+    font-size: var(--size-gld);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.btn.outline:hover {
+    background: var(--themecolor);
+    color: var(--clr-alttext);
+}
+
+.w3-text-red.w3-border-red {
+    border-color: #e94560;
+    color: #e94560;
+}
+
+.w3-hover-red:hover {
+    background: #e94560;
+    color: #fff;
+}
+
+/* ---------- Delete Form ---------- */
+.w3-display-topright {
+    position: absolute;
+    top: var(--size-sm);
+    right: var(--size-sm);
+}
+
+/* ---------- Utility Helpers ---------- */
+.flow {
+    display: flex;
+    flex-direction: column;
+}
+
+.flowline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flow.left {
+    align-items: flex-start;
+}
+
+.flow.right {
+    align-items: flex-end;
+}
+
+.centroid {
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,40 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postavar - home</title>
-    
-    <link rel="shortcut icon" href="lrvl icon.png" type="image/png">
-    <link rel="stylesheet" href="_assets/BS4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="_assets/css/fa-all.css">
-    <link rel="stylesheet" href="_assets/css/styles.css">
-    <link rel="stylesheet" href="_assets/css/w3.css">
-    <link rel="stylesheet" href="_assets/css/coryG_base.css">
-    <link rel="stylesheet" href="_assets/css/coryG_UIOps.css">
-    <link rel="stylesheet" href="_assets/css/animations.css">
-    <link rel="stylesheet" href="_assets/css/fonts.css">
+<x-layout>
+    <x-slot:title>Your Profile</x-slot:title>
 
-    <!-- s-auto -->
-    <link rel="stylesheet" href="_assets/css/s-auto.css">
-    <link rel="stylesheet" href="_assets/css/s-auto/autoforms.css">
-
-    <!-- Bootstrap JS (Optional) -->
-    <script src="_assets/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="_assets/bs4/js/bootstrap.bundle.min.js"></script>
-    <script src="_assets/js/SuperScript.js"></script>
-    <script src="_assets/js/toappend.js"></script>
-    <script src="_assets/js/coryG_UIOps.js"></script>
-    <script src="_assets/js/customalerter.js"></script>
-</head>
-<body>
     @auth
+        <x-slot:role>dashboard</x-slot:role>
         {{-- if a user session exists --}}
 
         {{-- get deets --}}
         <?php
             $user = Auth::user();
             $uname = $user->name;
+            $creator = "";
         ?>
 
         <script>
@@ -55,9 +30,10 @@
         </script>
 
         <div class="flow centroid">
-            <div class="formguy spacy-md mycon w3-center">
+            <div class="spacy-md w3-center">
                 <span class="h3">Welcome <b class="themetxt">{{ $uname }}</b></span>
                 <button class="btn outline" data-toggler="#newpostmodal" data-onshow="flex"><i class="fa fa-plus"></i> create post</button>
+                <a class="btn outline" href="./feed"><i class="fa fa-list"></i> All posts</a>
                 <form action="./logout" method="post" class="spacy-sm d-i-b">
                     @csrf
                     <button href="./logout" class="btn outline"><i class="fa fa-user-slash"></i> logout</button>
@@ -73,32 +49,78 @@
             </div>
 
             <div class="flowline gap-md overflow-safe">
-            @if (count($posts))
-                <?php //print_r($posts);?>
+            @if (count($posts) == 0)
+                <div class="w3-center spacy-md">
+                    <div>
+                        <i>no posts yet</i>
+                    </div>
+                    <div class="spacy-md">
+                        <button class="btn outline" data-toggler="#newpostmodal" data-onshow="flex"><i class="fa fa-plus"></i> create post</button>
+                    </div>
+                </div>
+            @else
+                <?php
+                    function showwords($str,$words=20){
+                        $str = $str ?? "This is a long string that has way more than twenty words just for the sake of showing you how to cut it properly without breaking words apart like substr would do.";
+                        $items = explode(' ', $str); // split into array of words
+
+                        if(count($items) > $words){
+                            $thechars = array_slice($items, 0, $words); // take first 20
+                            $result = implode(' ', $thechars)." ...";
+                        } else {
+                            $result = $str;
+                        }
+
+                        return $result;
+                    }
+                    function indicateStatus($state = 'public'){
+                        if($state === "private"){
+                            return "<i class=\"fa fa-lock\"></i>";
+                        } else {
+                            return '';
+                        }
+                    }
+                    
+                    //print_r($posts);
+                ?>
+
                 @foreach ($posts as $post)
                     <?php
-                        $body = str_replace("\n", "<br>", $post['body']);
+                        $me = $post;
+                        $datemade = $post['created_at'];
+                        $dateedit = $post['updated_at'];
+                        $myid = $post['id'];
+                        $title = $post['title'];
+                        $msg = json_decode($post['body']);
+                        $creator = $post->myuser->name;
+
+                        $rawbody = showwords($msg,20);
+                        $mybody = str_replace("\n", "<br>", $rawbody);
                     ?>
-                    <div class="spacy-sm panelbg postbox mycon w3-card">
-                        <div>
-                            <span class="text-gld">by <b class="themetxt">{{ $post->myuser->name }}</b> <br>on <b class="themetxt">{{ $post['created_at'] }}</b></span>
-                            <span class="h3">{{ $post['title'] }}</span>
-                            <hr class="mutedstroke">
+
+                    <div class="postbox" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
+                        <div class="">
+                            <span class="text-gld">by <b class="themetxt">{{ $creator }}</b> {!! indicateStatus($post['privacy_state']) !!}</span>
+                            <span class="h3">{{ $title }}</span>
                         </div>
-                        <div>
-                            <div><?=$body?></div>
+
+                        <div class="">
+                            {!! $mybody !!} ...
                         </div>
-                        <div class="spacy-sm">
-                            <span class="text-muted text-gld distance-tn w3-block">item created on <b class="themetxt">{{ $post['created_at'] }}</b></span>
-                            <a href="./edit-post/{{ $post['id'] }}" class="btn outline"><i class="fa fa-edit"></i> Edit post</a>
+
+                        <div class="flow left gap-tn">
+                            <span class="text-muted text-gld w3-block">item created on <b class="themetxt">{{ $datemade }}</b></span>
+                            <span class="text-muted text-gld w3-block">last update <b class="themetxt">{{ $dateedit }}</b></span>
                         </div>
-                        <form action="./delete-post/{{ $post['id'] }}" method="post" class="w3-display-topright spacy-sm">
+                        
+                        <form action="./delete-post/{{ $post['id'] }}" method="post" class="w3-display-topright spacy-sm delOverlay">
                             @csrf
                             @method('DELETE')
+                            <a href="./edit-post/{{ $post['id'] }}" class="btn outline"><i class="fa fa-edit"></i></a>
                             <button class="btn outline w3-text-red w3-border-red w3-hover-red"><i class="fa fa-trash"></i></button>
                         </form>
                     </div>
-                @endforeach
+                @endforeach 
             @endif
             </div>
         </div>
@@ -109,13 +131,83 @@
                 <span class="h3">Add post</span>
                 <form action="./mek-post" method="post" class="s-autoform-v">
                     @csrf
+
+                    <select name="privacy_s" id="privacy_s">
+                        <option value="private">private (only you can see it)</option>
+                        <option value="public" selected>public (anyone can see it)</option>
+                        <option value="unlisted" selected>unlisted (anyone can see it if they have the link)</option>
+                    </select>
                     <input type="text" name="post_title" id="post_title" value="{{old('post_title')}}" placeholder="what do we call this adventure" autofocus>
                     <textarea name="post_message" id="post_message" rows="3" placeholder="what's on your mind">{{old('post_message')}}</textarea>
                     <button class="btn outline"><i class="fa fa-plus"></i> add post</button>
                 </form>
             </div>
         </div>
+
+		<div class="mymodal" data-role="postmodal" data-shown="0">
+			<div class="modal-content slide-in-bottom">
+				<button class="w3-btn w3-display-topright" onclick="toggleShow(`[data-role='postmodal']`);"><i class="fa fa-times"></i></button>
+
+				<div class="postbox v2">
+					<div class="">
+						<span class="text-gld" data-subrole="creator">by <b class="themetxt">creator</b></span>
+						<span class="h3" data-subrole="mytitle">title</span>
+					</div>
+
+					<div class="" data-subrole="mybody"></div>
+
+					<div class="flow left gap-tn" data-subrole="timestamps">
+						<span class="text-muted text-gld w3-block">item created on <b class="themetxt"></b></span>
+						<span class="text-muted text-gld w3-block">last update <b class="themetxt"></b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			let boxes = undefined;
+			let mdl = undefined;
+
+			window.addEventListener('load', () => {
+				boxes = document.querySelectorAll('.postbox');
+				mdl = document.querySelector('[data-role="postmodal"]');
+
+				init_boxes();
+			});
+
+			function init_boxes() {
+				boxes.forEach((el,m) => {
+					el.addEventListener('click',(e) => {
+						console.log('click registered',e);
+						if(e.target.className.includes('fa') || e.target.className.includes('btn')){
+							return;
+						}
+
+						// alert_warning('warkin', 8 * Math.random());
+
+						toggleShowB('[data-role="postmodal"]','flex','none');
+
+						let ui_creator = mdl.querySelector('[data-subrole="creator"]');
+						let ui_title = mdl.querySelector('[data-subrole="mytitle"]');
+						let ui_mybody = mdl.querySelector('[data-subrole="mybody"]');
+						let ui_timestamps = mdl.querySelector('[data-subrole="timestamps"]');
+
+						ui_creator.innerHTML = `<span class="text-gld">by <b class="themetxt">${el.dataset.creator}</b></span>`;
+						ui_title.innerText = `${el.dataset.title}`;
+						ui_mybody.innerText = `${el.dataset.msg}`;
+						ui_timestamps.innerHTML = `
+							<span class="text-muted text-gld w3-block">item created on <b class="themetxt">${el.dataset.datemade}</b></span>
+							<span class="text-muted text-gld w3-block">last update <b class="themetxt">${el.dataset.dateedit}</b></span>
+						`;
+
+						console.log(el.dataset.creator, el.dataset.title, el.dataset.msg, el.dataset.timestamps);
+					})
+				});
+			}
+		</script>
     @else
+        <x-slot:role>signup</x-slot:role>
+
         {{-- if a user session doesnt exist --}}
         <div class="w3-animate-zoom spacy-sm w3-border w3-border-red w3-text-red w3-hide">
             <span>you aint logged in</span>
@@ -177,5 +269,4 @@
             </div>
         </div>
     @endauth
-</body>
-</html>
+</x-layout>

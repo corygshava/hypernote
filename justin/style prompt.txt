@@ -1,0 +1,66 @@
+consider that this is a sample post display page {
+	<div class="posts_list">
+		<div class="postbox">
+			<div>
+				<span class="text-gld">by <b class="themetxt">bugamaister</b> <br>on <b class="themetxt">2025-09-19 09:43:21</b></span>
+				<span class="h3">Remanza</span>
+				<hr class="mutedstroke">
+			</div>
+			<div>
+				<div>
+					text
+				</div>
+			</div>
+			
+			<div class="spacy-sm">
+				<span class="text-muted text-gld distance-tn w3-block">item created on <b class="themetxt">2025-09-19 09:43:21</b></span>
+				<a href="./edit-post/5" class="btn outline"><i class="fa fa-edit"></i> Edit post</a>
+			</div>
+			<form action="./delete-post/5" method="post" class="w3-display-topright spacy-sm">
+				<input type="hidden" name="_token" value="2DxmzRsq1T7voeoM7jF0OZSyLeOripypt19yhpNC" autocomplete="off">
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="btn outline w3-text-red w3-border-red w3-hover-red"><i class="fa fa-trash"></i></button>
+			</form>
+		</div>
+	</div>}
+
+	give me styles to make this look good, consider that i have this set up for colors and variables`
+
+	:root{
+		--clr-bg: #121212;          /* Main background */
+		--clr-bgglass: #121212aa;   /* Glassy overlay on dark bg */
+		--clr-darkglass: #ffffff22; /* Lightened transparent overlay */
+		--clr-whiteglass: #222222aa;/* Subtle dark glass panel */
+		--clr-panelbg: #1e1e1e;     /* Panel background */
+		--clr-alttext: #111;        /* Very dark alt text (used in light accents) */
+		--clr-text: #f0f0f0;        /* Main text (light on dark bg) */
+		--clr-text-muted: #5c5c5c;  /* Muted/secondary text */
+
+		--themecolor: #bb46e9;   /* main color */
+	    --seccolor: #7966ce;     /* softer secondary color */
+	    --darkcolor: #6a1b9a;    /* deeper accent shade */
+		--clr-theme-dark: var(--darkcolor);
+
+		--themeglow: 0 0 16px var(--themecolor);
+		--themeshadow: 0 0 16px rgba(0,0,0,0.7);
+		--overlaybg: rgba(0,0,0,0.8);
+		--size-tn: 8px;
+		--size-gld: 12px;
+		--size-sm: 16px;
+		--size-nm: 24px;
+		--size-md: 32px;
+		--size-lg: 48px;
+		--size-mg: 64px;
+		--roundness: 8px;
+		--minspan: 800px;
+	}` and i use prefix classes {
+		text-(size annotation suffix) for font-size
+		spacy-(size annotation suffix) for all round padding
+		distance-(size annotation suffix) for top and bottom margin
+		gap-(size annotation suffix) for gaps in flex items
+		flow (a class for creating flex columns)
+		flowline (a class for creating flex rows)
+		flow.left (aligns all elements to the left)
+		flow.right (aligns all elements to the right)
+		centroid (centers a div)
+	}

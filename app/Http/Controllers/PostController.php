@@ -9,17 +9,24 @@ class PostController extends Controller{
     public function mek_post(Request $req){
     	$indata = $req->validate([
             'post_title' => ['required','min:3'],
-            'post_message' => ['required','min:3','max:2000']
+            'post_message' => ['required','min:3','max:10000'],
+            'privacy_s' => ['required','min:6']
         ]);
 
+        $p_status = $indata['privacy_s'];
+        $p_options = ['private', 'public', 'unlisted'];
+
         $san_title = strip_tags($indata['post_title']);
-        $san_message = strip_tags($indata['post_message']);
+        $san_message = json_encode($indata['post_message']);
+        $san_message = str_ireplace('script>', 'getfucked_hacker>', $san_message);
         $san_uid = auth()->id();
+        $san_privacy = in_array($p_status,$p_options) ? $p_status : 'private';
 
         $outdata = [
         	'title' => $san_title,
         	'body' => $san_message,
-        	'user_id' => $san_uid
+        	'user_id' => $san_uid,
+            'privacy_state' => $san_privacy
         ];
 
         Post::create($outdata);
@@ -44,15 +51,22 @@ class PostController extends Controller{
 
         $indata = $req->validate([
             'post_title' => 'required',
-            'post_message' => 'required'
+            'post_message' => 'required',
+            'privacy_s' => ['required','min:6']
         ]);
 
+        $p_status = $indata['privacy_s'];
+        $p_options = ['private', 'public', 'unlisted'];
+
         $san_title = strip_tags($indata['post_title']);
-        $san_message = strip_tags($indata['post_message']);
+        $san_message = json_encode($indata['post_message']);
+        $san_message = str_ireplace('script>', 'getfucked_hacker>', $san_message);
+        $san_privacy = in_array($p_status,$p_options) ? $p_status : 'private';
 
         $outdata = [
             'title' => $san_title,
-            'body' => $san_message
+            'body' => $san_message,
+            'privacy_state' => $san_privacy
         ];
 
         $post->update($outdata);
@@ -69,5 +83,12 @@ class PostController extends Controller{
         $post->delete();
 
         return redirect('/')->with('success','Post deleted successfully');
+    }
+
+    public function show_public_posts(Post $post){
+        // $allposts = Post::all();
+        $allposts = Post::where('privacy_state', 'public')->get();
+
+        return view('feed', ['posts' => $allposts]);
     }
 }
