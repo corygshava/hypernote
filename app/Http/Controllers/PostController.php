@@ -10,7 +10,6 @@ class PostController extends Controller{
     	$indata = $req->validate([
             'post_title' => ['required','min:3'],
             'post_message' => ['required','min:3','max:10000'],
-            'privacy_s' => ['required','min:6']
         ]);
 
         $p_status = $indata['privacy_s'];
@@ -18,7 +17,7 @@ class PostController extends Controller{
 
         $san_title = strip_tags($indata['post_title']);
         $san_message = json_encode($indata['post_message']);
-        $san_message = str_ireplace('script>', 'getfucked_hacker>', $san_message);
+        $san_message = str_ireplace('script>', 'getlost_hacker>', $san_message);
         $san_uid = auth()->id();
         $san_privacy = in_array($p_status,$p_options) ? $p_status : 'private';
 
@@ -87,7 +86,7 @@ class PostController extends Controller{
 
     public function show_public_posts(Post $post){
         // $allposts = Post::all();
-        $allposts = Post::where('privacy_state', 'public')->get();
+        $allposts = Post::where('privacy_state', 'public')->paginate(12);
 
         return view('feed', ['posts' => $allposts]);
     }

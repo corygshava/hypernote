@@ -13,7 +13,7 @@ Route::get('/', function () {
 
     $allposts = [];
     if(auth()->check()){
-        $allposts = auth()->user()->userposts()->latest()->get();
+        $allposts = auth()->user()->userposts()->latest()->paginate(12);;
     }
 
     return view('home',['posts' => $allposts]);

@@ -59,68 +59,16 @@
                     </div>
                 </div>
             @else
-                <?php
-                    function showwords($str,$words=20){
-                        $str = $str ?? "This is a long string that has way more than twenty words just for the sake of showing you how to cut it properly without breaking words apart like substr would do.";
-                        $items = explode(' ', $str); // split into array of words
-
-                        if(count($items) > $words){
-                            $thechars = array_slice($items, 0, $words); // take first 20
-                            $result = implode(' ', $thechars)." ...";
-                        } else {
-                            $result = $str;
-                        }
-
-                        return $result;
-                    }
-                    function indicateStatus($state = 'public'){
-                        if($state === "private"){
-                            return "<i class=\"fa fa-lock\"></i>";
-                        } else {
-                            return '';
-                        }
-                    }
-                    
-                    //print_r($posts);
-                ?>
+                <x-poststyles/>
+		        <x-postfunctions/>
 
                 @foreach ($posts as $post)
-                    <?php
-                        $me = $post;
-                        $datemade = $post['created_at'];
-                        $dateedit = $post['updated_at'];
-                        $myid = $post['id'];
-                        $title = $post['title'];
-                        $msg = json_decode($post['body']);
-                        $creator = $post->myuser->name;
+                    <x-mypostcard :post="$post"/>
+                @endforeach
 
-                        $rawbody = showwords($msg,20);
-                        $mybody = str_replace("\n", "<br>", $rawbody);
-                    ?>
-
-                    <div class="postbox" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
-                        <div class="">
-                            <span class="text-gld">by <b class="themetxt">{{ $creator }}</b> {!! indicateStatus($post['privacy_state']) !!}</span>
-                            <span class="h3">{{ $title }}</span>
-                        </div>
-
-                        <div class="">
-                            {!! $mybody !!} ...
-                        </div>
-
-                        <div class="flow left gap-tn">
-                            <span class="text-muted text-gld w3-block">item created on <b class="themetxt">{{ $datemade }}</b></span>
-                            <span class="text-muted text-gld w3-block">last update <b class="themetxt">{{ $dateedit }}</b></span>
-                        </div>
-                        
-                        <form action="./delete-post/{{ $post['id'] }}" method="post" class="w3-display-topright spacy-sm delOverlay">
-                            @csrf
-                            @method('DELETE')
-                            <a href="./edit-post/{{ $post['id'] }}" class="btn outline"><i class="fa fa-edit"></i></a>
-                            <button class="btn outline w3-text-red w3-border-red w3-hover-red"><i class="fa fa-trash"></i></button>
-                        </form>
-                    </div>
-                @endforeach 
+                <div class="w3-center">
+                    {!! $posts->links('vendor.pagination.thecustom') !!}
+                </div>
             @endif
             </div>
         </div>
@@ -135,7 +83,7 @@
                     <select name="privacy_s" id="privacy_s">
                         <option value="private">private (only you can see it)</option>
                         <option value="public" selected>public (anyone can see it)</option>
-                        <option value="unlisted" selected>unlisted (anyone can see it if they have the link)</option>
+                        <option value="unlisted">unlisted (anyone can see it if they have the link)</option>
                     </select>
                     <input type="text" name="post_title" id="post_title" value="{{old('post_title')}}" placeholder="what do we call this adventure" autofocus>
                     <textarea name="post_message" id="post_message" rows="3" placeholder="what's on your mind">{{old('post_message')}}</textarea>
@@ -164,47 +112,7 @@
 			</div>
 		</div>
 
-		<script>
-			let boxes = undefined;
-			let mdl = undefined;
-
-			window.addEventListener('load', () => {
-				boxes = document.querySelectorAll('.postbox');
-				mdl = document.querySelector('[data-role="postmodal"]');
-
-				init_boxes();
-			});
-
-			function init_boxes() {
-				boxes.forEach((el,m) => {
-					el.addEventListener('click',(e) => {
-						console.log('click registered',e);
-						if(e.target.className.includes('fa') || e.target.className.includes('btn')){
-							return;
-						}
-
-						// alert_warning('warkin', 8 * Math.random());
-
-						toggleShowB('[data-role="postmodal"]','flex','none');
-
-						let ui_creator = mdl.querySelector('[data-subrole="creator"]');
-						let ui_title = mdl.querySelector('[data-subrole="mytitle"]');
-						let ui_mybody = mdl.querySelector('[data-subrole="mybody"]');
-						let ui_timestamps = mdl.querySelector('[data-subrole="timestamps"]');
-
-						ui_creator.innerHTML = `<span class="text-gld">by <b class="themetxt">${el.dataset.creator}</b></span>`;
-						ui_title.innerText = `${el.dataset.title}`;
-						ui_mybody.innerText = `${el.dataset.msg}`;
-						ui_timestamps.innerHTML = `
-							<span class="text-muted text-gld w3-block">item created on <b class="themetxt">${el.dataset.datemade}</b></span>
-							<span class="text-muted text-gld w3-block">last update <b class="themetxt">${el.dataset.dateedit}</b></span>
-						`;
-
-						console.log(el.dataset.creator, el.dataset.title, el.dataset.msg, el.dataset.timestamps);
-					})
-				});
-			}
-		</script>
+		<x-postscode/>
     @else
         <x-slot:role>signup</x-slot:role>
 
