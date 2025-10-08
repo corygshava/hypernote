@@ -10,6 +10,7 @@ class PostController extends Controller{
     	$indata = $req->validate([
             'post_title' => ['required','min:3'],
             'post_message' => ['required','min:3','max:10000'],
+            'privacy_s' => ['min:3','max:10000'],
         ]);
 
         $p_status = $indata['privacy_s'];
