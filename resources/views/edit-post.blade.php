@@ -35,10 +35,10 @@
                         @endif
 
                         <select name="privacy_s" id="privacy_s">
-                            <option value="" disabled selected>-- pick a privacy status --</option>
-                            <option value="private">private (only you can see it)</option>
-                            <option value="public">public (anyone can see it)</option>
-                            <option value="unlisted">unlisted (anyone can see it if they have the link)</option>
+                            <option value="" disabled <?php echo !isset($post['privacy_state']) ? "selected" : "" ?>>-- pick a privacy status --</option>
+                            <option value="private" <?php echo $post['privacy_state'] == "private" ? "selected" : ""  ?>>private (only you can see it)</option>
+                            <option value="public" <?php echo $post['privacy_state'] == "public" ? "selected" : ""  ?>>public (anyone can see it)</option>
+                            <option value="unlisted" <?php echo $post['privacy_state'] == "unlisted" ? "selected" : ""  ?>>unlisted (anyone can see it if they have the link)</option>
                         </select>
                         <input type="text" name="post_title" id="post_title" value="{{ $post['title'] }}" placeholder="type the title here">
                         <textarea name="post_message" id="post_message" placeholder="type the title here" rows="6">{{ $thebody }}</textarea>
