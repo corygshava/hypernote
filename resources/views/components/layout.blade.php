@@ -36,6 +36,7 @@
 	<script src="_assets/js/toappend.js"></script>
 	<script src="_assets/js/coryG_UIOps.js"></script>
 	<script src="_assets/js/customalerter.js"></script>
+	<script src="_assets/js/app.js"></script>
 
 	<style>
 		.content{
@@ -111,6 +112,7 @@
 		// echo !isset($role) ? "its not up" : "it is";
 	?>
 </head>
+
 <body>
 	@auth
 		@if ($shownav)

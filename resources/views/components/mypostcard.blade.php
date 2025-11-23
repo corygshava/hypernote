@@ -20,7 +20,7 @@
 		$mybody = str_replace("[richtext]", "", $rawbody);
 	?>
 
-	<div class="postbox" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
+	<div class="postbox card" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
 		<div class="">
 			<span class="text-gld">by <b class="themetxt">{{ $creator }}</b> {!! indicateStatus($post['privacy_state']) !!}</span>
 			<span class="h3">{{ $title }}</span>

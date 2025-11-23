@@ -18,7 +18,7 @@
 		$creator = $me->myuser->name;
 	?>
 
-	<div class="postbox" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
+	<div class="postbox card" data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}">
 		<div class="">
 			<span class="text-gld">by <b class="themetxt">{{ $creator }}</b></span>
 			<span class="h3">{{ $title }}</span>

@@ -1,3 +1,4 @@
+homescripts loaded
 		<script>
 			let boxes = undefined;
 			let mdl = undefined;
@@ -17,9 +18,9 @@
 							return;
 						}
 
-						// alert_warning('warkin', 8 * Math.random());
+						alert_warning('warkin', 8 * Math.random());
 
-						toggleShowB('[data-role="postmodal"]','flex','none');
+						toggleShowB('[data-role="postmodal_"]','flex','none');
 
 						let ui_creator = mdl.querySelector('[data-subrole="creator"]');
 						let ui_title = mdl.querySelector('[data-subrole="mytitle"]');
