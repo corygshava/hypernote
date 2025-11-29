@@ -14,10 +14,15 @@ function copytext1(txt) {
 			console.log(suc ? "text copied" : "copying error occured!")
 		} catch {
 			alert("there was an error copying your text, please try again")
+			return false;
 		}
 
 		document.body.removeChild(b);
+	} else {
+		return false;
 	}
+
+	return true;
 }
 
 // added from Maggy project on 27/02/2025 same day as these ^
@@ -42,6 +47,8 @@ function plural(wad,n) {
 		res = wad.slice(0, -2) + 'i';
 	} else if (wad.endsWith('s')) {
 		res = wad + 'es';
+	} else if (wad.endsWith('ay')) {
+		res = wad + 's';
 	} else if (wad.endsWith('y')) {
 		res = wad.slice(0,-1) + 'ies';
 	} else if (wad.endsWith('_')){
@@ -88,15 +95,20 @@ function startCountdown(targetDate,format,ifexpired,suffix) {
 	suffix = suffix == undefined ? '' : suffix;
 	format = format == undefined ? 0 : format;
 
-	const target = new Date(targetDate).setHours(0, 0, 0, 0);
+	let tdate = Number(targetDate);
 
-	function updateCountdown() {
+	const target = isNaN(tdate) ? new Date(targetDate) : new Date(tdate);
+
+	// console.log(`target time: ${targetDate} -> `, target);
+	// console.log(`new Date(${targetDate}) -> `, target);
+
+	let updateCountdown = () => {
 		const now = new Date().getTime();
 		const timeLeft = target - now;
 		let outxt = '';
 
 		if (timeLeft <= 0) {
-			return ifexpired;
+			return (typeof ifexpired == 'function') ? ifexpired() : ifexpired;
 		}
 
 		const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -105,13 +117,15 @@ function startCountdown(targetDate,format,ifexpired,suffix) {
 		const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
 		if(format == 0){
-			outxt = `${days} ${plural('day',days)}, ` +
+			outxt = days > 0 ? `${days} ${plural('day',days)}, ` : '';
+			outxt +=
 				`${String(hours).padStart(2, '0')} hours, ` +
 				`${String(minutes).padStart(2, '0')} min ` +
 				`${String(seconds).padStart(2, '0')} sec` +
 				suffix;
 		} else {
-			outxt = `${days}:` +
+			outxt = days > 0 ? `${days}:` : '';
+			outxt +=
 				`${String(hours).padStart(2, '0')}: ` +
 				`${String(minutes).padStart(2, '0')}:` +
 				`${String(seconds).padStart(2, '0')}` +
@@ -128,21 +142,18 @@ function findIndex(arr, searchString) {
 	return arr.findIndex(element => element.includes(searchString));
 }
 
-function typetext(sel,duration,word) {
+function typetext(duration,word) {
 	let letr = 0,wad = "";
-	let item = document.querySelector(sel);
 
-	if(item != null){
-		let myinter = setInterval(() => {
-			letr += 1;
-			wad = `${word.slice(0,letr)}_`;
-			item.innerHTML = `${wad}`;
+	let myinter = setInterval(() => {
+		letr += 1;
+		wad = `${word.slice(0,letr)}_`;
+		subtxt.innerHTML = `${wad}`;
 
-			if(letr >= word.length){
-				clearInterval(myinter);
-			}
-		},(duration * 1000) / (word.length))
-	}
+		if(letr >= word.length){
+			clearInterval(myinter);
+		}
+	},(duration * 1000) / (word.length))
 }
 
 function openinnewtab(url) {
@@ -323,4 +334,69 @@ function copycontent(start,destination,copyClasses,copytype,reqno){
 			})
 		}
 	},200);
+}
+
+// new from houseofjrm on 14/10/2025 around 229 days after these
+
+function shufflelist(arr) {
+	return arr
+		.map(item => ({ item, sort: Math.random() }))
+		.sort((a, b) => a.sort - b.sort)
+		.map(({ item }) => item);
+}
+
+function add_to_storage(key, newObject) {
+	try {
+		const existingData = localStorage.getItem(key);
+		const thelist = existingData ? JSON.parse(existingData) : [];
+		
+		// Validate that we have an array
+		if (!Array.isArray(thelist)) {
+			console.warn(`LocalStorage key "${key}" exists but is not an array. Overwriting with new array.`);
+			thelist = [];
+		}
+
+		thelist.push(newObject);
+		localStorage.setItem(key, JSON.stringify(thelist));
+		
+		return thelist;
+	} catch (error) {
+		console.error(`Error appending to localStorage key "${key}":`, error);
+		throw error; // Re-throw to allow caller to handle
+	}
+}
+
+function getpage(url) {
+	let link = url.split('://')[1];
+	let unquery = link.split('?')[0];
+	let nodes = unquery.split('/');
+	let anchors = nodes[nodes.length-1].split('#');
+	let thefile = anchors[0];
+
+	thefile = thefile == "" ? "index" : thefile;
+
+	return thefile;
+}
+
+window['objtoquery'] = (obj, prefix = '') => {
+	const pairs = [];
+
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			const fullKey = prefix ? `${prefix}[${key}]` : key;
+			const value = obj[key];
+
+			if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+				pairs.push(objtoquery(value, fullKey));
+			} else if (Array.isArray(value)) {
+				value.forEach(item => {
+					pairs.push(encodeURIComponent(fullKey + '[]') + '=' + encodeURIComponent(item));
+				});
+			} else {
+				pairs.push(encodeURIComponent(fullKey) + '=' + encodeURIComponent(value));
+			}
+		}
+	}
+
+	return pairs.join('&');
 }

@@ -20,12 +20,14 @@ class PostController extends Controller{
         $san_message = json_encode($indata['post_message']);
         $san_message = str_ireplace('script>', 'getlost_hacker>', $san_message);
         $san_uid = auth()->id();
+        $san_serial = strtoupper(self::mekRandomString(8));
         $san_privacy = in_array($p_status,$p_options) ? $p_status : 'private';
 
         $outdata = [
         	'title' => $san_title,
         	'body' => $san_message,
         	'user_id' => $san_uid,
+            'serial' => $san_serial,
             'privacy_state' => $san_privacy
         ];
 
@@ -41,6 +43,29 @@ class PostController extends Controller{
         }
 
         return view('edit-post', ['post' => $post]);
+    }
+
+    public function view_post(Request $req,string $post){
+        // prevents unauthorised access
+        $thepost = Post::where('id',$post)->where('privacy_state','<>','private')->first();
+        $tosend = [
+            "message" => 'post doesnt exist or isnt public yet',
+            "data" => self::commondata(),
+        ];
+
+        if($thepost == null){
+            $thepost = Post::where('serial',$post)->where('privacy_state','<>','private')->first();
+        }
+
+        if($thepost != null){
+            $tosend['message'] = 'post found';
+        }
+
+        $tosend['post'] = $thepost;
+
+        echo "<base href=\"../\">\n";
+
+        return view('view-post', $tosend);
     }
 
     public function update_post(Post $post, Request $req) {

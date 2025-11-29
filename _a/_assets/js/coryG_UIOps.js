@@ -2,8 +2,8 @@
 	* Author: Cornelius Shava
 	* Organisation: Haosel Kenya
 	* Date: 27/07/2025
-	* last modified: 08/10/2025
-	* Time: 15:14
+	* last modified: 29/11/2025
+	* Time: 13:01
 	* Email: corygprod@duck.com
 	* File: coryG_UIOps.js
 */
@@ -127,6 +127,9 @@ let tg_contents = {};
 
 		// content cloners
 		init_copiers();
+
+		// content copy buttons
+		init_copyacts();
 
 		// height reference
 		init_measureRefs();
@@ -402,6 +405,41 @@ let tg_contents = {};
 					alert_danger(`copy reference not found: ${el.dataset.copyme}`);
 					console.log('init_copiers error: ',el);
 				}
+			}
+		});
+	}
+
+	function init_copyacts() {
+		const picker = 'copy acts';
+		let gotos = document.querySelectorAll('[data-copythis]');
+	
+		gotos.forEach(el => {
+			if(el.dataset.picker == undefined || el.dataset.picker !== picker){
+				el.dataset.picker = picker;
+				const mytarget = document.querySelector(el.dataset.copythis);
+
+				el.addEventListener('click',() => {
+					let target = mytarget;
+
+					if(target != undefined){
+						const _2copy = target.innerText;
+						let resb = copytext1(_2copy);
+						let succeed = el.dataset.successtext || 'text copied successfully';
+						let fail = el.dataset.failtext || 'text copied successfully';
+						let _quiet = el.dataset.isquiet || "false";
+						let quiet = _quiet == "true" || _quiet == "yes";
+
+						if(!quiet){
+							if(resb){
+								alert_success(succeed);
+							} else {
+								alert_danger(fail);
+							}
+						}
+					} else {
+						alert_warning('invalid copy target');
+					}
+				})
 			}
 		});
 	}

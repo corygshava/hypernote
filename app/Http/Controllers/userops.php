@@ -15,7 +15,9 @@ class userops extends Controller{
         ]);
 
         $upass = $indata['password'];
+        $regCountry = self::getUserCountry($req);
         $indata['password'] = bcrypt($upass);
+        $indata['country'] = $regCountry;
         
         $user = User::create($indata);
         auth()->login($user);

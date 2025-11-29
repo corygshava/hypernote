@@ -1,6 +1,8 @@
-<div class="mymodal" data-role="postmodal_" data-shown="0" data-special="yes">
+<x-postmodal/>
+
+{{-- <div class="mymodal" data-role="postmodal_" data-shown="0" data-special="yes">
 	<div class="modal-content slide-in-bottom">
-		<button class="w3-btn w3-display-topright" onclick="toggleShow(`[data-role='postmodal_']`);"><i class="fa fa-times"></i></button>
+		<button class="w3-btn w3-display-topright" onclick="toggleShow(`[data-role='postmodal_']`);"><i class="fa fa-times"></i> close</button>
 
 		<div class="postbox v2">
 			<div class="">
@@ -16,4 +18,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}

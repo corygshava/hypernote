@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout pagename="All posts">
 	<x-slot:title>All public posts</x-slot:title>
 
 	<div class="w3-center">

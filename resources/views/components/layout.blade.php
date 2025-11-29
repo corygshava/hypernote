@@ -1,3 +1,11 @@
+@props([
+	'appname' => 'Hypernote',
+	'title' => '--',
+	'shownav' => true,
+	'pagename' => '??',
+	'goback' => 'no',
+])
+
 <?php
 	$appname = 'Hypernote';
 ?>

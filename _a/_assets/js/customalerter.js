@@ -1,8 +1,30 @@
+// config variables (you can change these)
+let useicons = true;			// show icons in front of the text
+let isinteractible = false;		// should the user be able to click on the alerts
+
+// runtime variables (DONT REMOVE OR CHANGE!!!)
 let stylesmade = false;
 let alertlogs = [];
 
+// required constants (DO NOT EDIT!!!)
+const icons = {
+	"success": "fa fa-check-circle",
+	"info": "fa fa-info-circle",
+	"warning": "fa fa-exclamation-triangle",
+	"danger": "fa fa-times-circle",
+	"primary": "fa fa-info",
+	"theme": "fa fa-paint-brush",
+	"secondary": "fa fa-circle",
+	"light": "fa fa-sun",
+	"light": "fa fa-caret-right",
+	"dark": "fa fa-moon",
+	"dark": "fa fa-caret-right",
+};
+const mekicon = (what) => {return `<i class="${what}"></i>`;}
+
 function mekstyles() {
-	let zindex = 24;
+	let zindex = 1056;
+	let intertxt = isinteractible ? 'all' : 'none';
     let mystyles = `
     	/* alert holder */
 
@@ -16,6 +38,7 @@ function mekstyles() {
 			pointer-events: none;
 			padding: 20px 30px 80px 30px;
 			z-index: ${zindex};
+			font-family: 'calibri', sans-serif !important;
     		--c: #fff;
     		--altc: #000;
 		}
@@ -33,7 +56,8 @@ function mekstyles() {
 			width: fit-content;
     		min-width: 300px;
 			max-width: 400px;
-    		font-weight: 700;
+			pointer-events: ${intertxt};
+    		// font-weight: 700;
 		}
 
 		.alert.success{background-color: mediumseagreen;box-shadow: 0 0 12px mediumseagreen;}
@@ -68,8 +92,11 @@ function mekstyles() {
 
 function showAlert(alertMessage, alertTime, alertType) {
 	alertMessage = alertMessage == undefined ? 'test message' : alertMessage;
-	alertTime = alertTime == undefined ? 5 : alertTime;
+	alertTime = alertTime == undefined ? 2 : alertTime;
 	alertType = alertType == undefined ? "info" : alertType;
+
+	rawmsg = alertMessage;
+	alertMessage = useicons ? (icons[alertType] == undefined ? '' : mekicon(icons[alertType])) + ` ${alertMessage}` : alertMessage;
 
     if(!stylesmade){
         mekstyles();
@@ -124,9 +151,8 @@ function showAlert(alertMessage, alertTime, alertType) {
 		console.log(`i will die in ${alertTime} seconds`);
 	}
 
-    let timestamp = (new Date()).getTime();
-
-    alertlogs.push({msg: alertMessage,atype: alertType,atime: timestamp});
+	let timestamp = (new Date()).getTime();
+    alertlogs.push({msg: rawmsg,atype: alertType,atime: timestamp});
 }
 
 function alert_success(message,time) {showAlert(message,time,"success");}

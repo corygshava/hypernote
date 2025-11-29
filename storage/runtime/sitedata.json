@@ -1,0 +1,56 @@
+{
+    "date_created": "2025-11-29 11:05:51",
+    "date_updated": "2025-11-21T03:25:29.000000Z",
+    "user_data": {
+        "deliveryCharge": 300,
+        "valueCutoff": 30000,
+        "sitelink": "https:\/\/app.haoselkenya.com\/_hypernote\/_a\/",
+        "dev_sitelink": "http:\/\/localhost\/lrvl_hypernote\/_a\/",
+        "PendingOrderLifetime": 12,
+        "NewSubPromocode": "NEWSUBSCRIBER_Y1",
+        "returnDeadline": 12,
+        "pre-orderDiscount": 19,
+        "failurePercent": 40,
+        "failureCap": 40000,
+        "orderCompletionPoints": 700,
+        "creditsConversion": 0.9,
+        "creditsCap": 45,
+        "Mpesa": {
+            "passkey": "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
+            "BusinessShortCode": "174379",
+            "TestPhoneNumber": "254708374149",
+            "CallbackRoute": "mpesa_callback"
+        },
+        "PaymentMethods": {
+            "Mpesa": "mpesa",
+            "Stripe": "card"
+        },
+        "AvailablePaymentMethods": {
+            "Mpesa": "mpesa",
+            "Stripe": "card"
+        },
+        "supportedCountries": {
+            "Mpesa": [
+                "KE"
+            ],
+            "Stripe": [
+                "KE",
+                "UG",
+                "TZ"
+            ],
+            "Delivery": [
+                "KE",
+                "UG",
+                "TZ"
+            ]
+        }
+    },
+    "developer_details": {
+        "email": "corygshava777+houseofjrmdev@gmail.com",
+        "name": "Cory"
+    },
+    "owner_details": {
+        "email": "justruthmartin@gmail.com",
+        "name": "Madam Ruth"
+    }
+}

@@ -27,6 +27,7 @@ Route::post('/logout', [userops::class,'logout']);
 // Blog post routes
 Route::post('/mek-post', [PostController::class,'mek_post']);
 Route::get('/edit-post/{post}', [PostController::class,'showEditScreen']);
+Route::get('/post/{id}', [PostController::class,'view_post']);
 Route::put('/edit-post/{post}', [PostController::class,'update_post']);
 Route::delete('/delete-post/{post}', [PostController::class,'delete_post']);
 
