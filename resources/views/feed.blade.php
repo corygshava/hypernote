@@ -31,7 +31,6 @@
 		</div>
 
 		<x-postmodal/>
-
-		{{-- <x-postscode/> --}}
+		<x-postscode/>
 	@endif
 </x-layout>
