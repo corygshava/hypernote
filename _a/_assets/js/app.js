@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
 	})
 
 	init_boxes();
-	init_btns();
+	// init_btns();
 });
 
 function init_boxes() {
