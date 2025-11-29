@@ -135,7 +135,7 @@ abstract class Controller{
 
 	public static function defaultSiteData(){
 		$created = Carbon::now()->toDateTimeString();
-		$lastupdate = Carbon::parse('2025-11-21 03:25:29');
+		$lastupdate = Carbon::parse('2025-11-29 03:25:29');
 
 		// this is the default site data that is regenerated if the sitedata file is corrupted or deleted
 		// holds website information that can be changed by the admin via myAdmin panel

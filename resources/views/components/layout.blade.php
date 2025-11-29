@@ -1,13 +1,21 @@
 @props([
 	'appname' => 'Hypernote',
 	'title' => '--',
-	'shownav' => true,
+	'shownav' => null,
+	'nav_hide_override' => true,
 	'pagename' => '??',
 	'goback' => 'no',
 ])
 
 <?php
 	$appname = 'Hypernote';
+
+	$is_dev = config('app.debug');
+
+	$data = App\Http\Controllers\Controller::commondata();
+	$sdata = $data['sitedata'];
+	$_udata = $sdata['user_data'];
+	$sitelink = $is_dev ? $_udata['dev_sitelink'] : $_udata['sitelink'];
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +121,10 @@
 			'signup'
 		];
 
-		$shownav = isset($role) ? !(in_array($role,$hidenav)) : true;
+		// print_r($shownav);
+		// echo "<br>";
+
+		// $shownav = $shownav == null ? (isset($role) ? !(in_array($role,$hidenav)) : true) : $shownav;
 		$isspecial = isset($role) ? in_array($role,$special) : false;
 		$pname = isset($pagename) ? $pagename : 'All posts';
 
@@ -123,7 +134,7 @@
 
 <body>
 	@auth
-		@if ($shownav)
+		@if ($shownav && $nav_hide_override === true)
 			<div class="spacy-sm topbar flowline spread">
 				<div class="flowline gap-sm centroid">
 					@if (isset($goback) && $goback == "yes")
@@ -140,6 +151,10 @@
 					@endif
 				</div>
 			</div>
+		@else
+			<div class="spacy-sm w3-hide">
+				nav hidden!
+			</div>
 		@endif
 	@else
 		<div class="spacy-sm topbar flowline spread">
@@ -151,7 +166,6 @@
 					<a class="btn outline" href="./posts"><i class="fa fa-list"></i> public posts</a>
 				@else
 					<a class="btn outline" href="./"><i class="fa fa-home"></i> home</a>
-					{{-- <i class="fa fa-list"></i> --}}
 				@endif
 			</div>
 		</div>
@@ -160,6 +174,10 @@
 	<div class="content">
 		{{ $slot }}
 	</div>
+
+	<script>
+		const sitelink = `{!! $sitelink !!}`;
+	</script>
 
 	<footer class="spacy-md">
 		&copy; CoryG prod

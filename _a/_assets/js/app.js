@@ -5,6 +5,18 @@ window.addEventListener('load', () => {
 	boxes = document.querySelectorAll('.postbox.card');
 	mymdl = document.querySelector('[data-role="postmodal_"]');
 
+	mymdl.addEventListener('click',(e) => {
+		mbox = e.target.closest('.modal-content');
+		console.log(mbox);
+
+		if(mbox == null){
+			const closebtn = mymdl.querySelector('[data-role="closebtn"]');
+			if(closebtn != undefined){
+				closebtn.click();
+			}
+		}
+	})
+
 	init_boxes();
 });
 
@@ -23,14 +35,21 @@ function init_boxes() {
 			let ui_title = mymdl.querySelector('[data-subrole="mytitle"]');
 			let ui_mybody = mymdl.querySelector('[data-subrole="mybody"]');
 			let ui_timestamps = mymdl.querySelector('[data-subrole="timestamps"]');
+			let sendlink = mymdl.querySelector('#postlink');
 
 			ui_creator.innerHTML = `<span class="text-gld">by <b class="themetxt">${el.dataset.creator}</b></span>`;
 			ui_title.innerText = `${el.dataset.title}`;
-			ui_mybody.innerText = `${el.dataset.msg}`;
+			if(el.dataset.msg.includes('[richtext]')){
+				let msg = el.dataset.msg.replaceAll('[richtext]',"");
+				ui_mybody.innerHTML = `${msg}`;
+			} else {
+				ui_mybody.innerText = `${el.dataset.msg}`;
+			}
 			ui_timestamps.innerHTML = `
 				<span class="text-muted text-gld w3-block">item created on <b class="themetxt">${el.dataset.datemade}</b></span>
 				<span class="text-muted text-gld w3-block">last update <b class="themetxt">${el.dataset.dateedit}</b></span>
 			`;
+			sendlink.innerText = `${sitelink}post/${el.dataset.myid}`;
 
 			console.log(el.dataset.creator, el.dataset.title, el.dataset.msg, el.dataset.timestamps);
 		})

@@ -431,7 +431,7 @@ let tg_contents = {};
 
 						if(!quiet){
 							if(resb){
-								alert_success(succeed);
+								alert_info(succeed);
 							} else {
 								alert_danger(fail);
 							}

@@ -1,4 +1,4 @@
-<x-layout pagename="All posts">
+<x-layout pagename="All posts" :shownav="true">
 	<x-slot:title>All public posts</x-slot:title>
 
 	<div class="w3-center">

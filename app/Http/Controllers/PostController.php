@@ -21,6 +21,7 @@ class PostController extends Controller{
         $san_message = str_ireplace('script>', 'getlost_hacker>', $san_message);
         $san_uid = auth()->id();
         $san_serial = strtoupper(self::mekRandomString(8));
+        $san_country = self::getUserCountry($req);
         $san_privacy = in_array($p_status,$p_options) ? $p_status : 'private';
 
         $outdata = [
@@ -28,7 +29,8 @@ class PostController extends Controller{
         	'body' => $san_message,
         	'user_id' => $san_uid,
             'serial' => $san_serial,
-            'privacy_state' => $san_privacy
+            'country' => $san_country,
+            'privacy_state' => $san_privacy,
         ];
 
         Post::create($outdata);
@@ -42,19 +44,20 @@ class PostController extends Controller{
             return redirect('/')->with('danger',"you cant edit someone else\'s post");
         }
 
-        return view('edit-post', ['post' => $post]);
+        return view('post.edit', ['post' => $post]);
     }
 
     public function view_post(Request $req,string $post){
         // prevents unauthorised access
-        $thepost = Post::where('id',$post)->where('privacy_state','<>','private')->first();
+        $thepost = Post::where('id',$post)->where('privacy_state','<>','private')->with('myuser')->first();
         $tosend = [
             "message" => 'post doesnt exist or isnt public yet',
             "data" => self::commondata(),
+            'id' => $post,
         ];
 
         if($thepost == null){
-            $thepost = Post::where('serial',$post)->where('privacy_state','<>','private')->first();
+            $thepost = Post::where('serial',$post)->where('privacy_state','<>','private')->with('myuser')->first();
         }
 
         if($thepost != null){
@@ -65,7 +68,7 @@ class PostController extends Controller{
 
         echo "<base href=\"../\">\n";
 
-        return view('view-post', $tosend);
+        return view('post.view', $tosend);
     }
 
     public function update_post(Post $post, Request $req) {

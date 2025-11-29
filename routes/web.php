@@ -11,6 +11,8 @@ Route::get('/', function () {
     // $allposts = Post::all(); // gets everything
     // $allposts = Post::where('user_id', auth()->id())->get(); // gets everything but with a catch
 
+    // echo "<br>made it to routes";
+
     $allposts = [];
     if(auth()->check()){
         $allposts = auth()->user()->userposts()->latest()->paginate(12);;
