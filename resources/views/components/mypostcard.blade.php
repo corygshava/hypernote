@@ -20,7 +20,7 @@
 		$mybody = str_replace("[richtext]", "", $rawbody);
 	?>
 
-	<div class="postbox card" 
+	<div class="postbox card slide-up" 
 		data-creator="{{ $creator }}" data-datemade="{{ $datemade }}" data-dateedit="{{ $dateedit }}" 
 		data-title="{{ $title }}" data-msg="{{ $msg }}" data-myid="{{ $myid }}"
 	>
@@ -45,12 +45,10 @@
 
 		@auth
 			@if ($me['user_id'] == auth()->user()->id)
-				<form action="./delete-post/{{ $post['id'] }}" method="post" class="w3-display-topright spacy-sm delOverlay">
-					@csrf
-					@method('DELETE')
+				<div class="w3-display-topright spacy-sm delOverlay">
 					<a href="./edit-post/{{ $post['id'] }}" class="btn outline"><i class="fa fa-edit"></i></a>
-					<button class="btn outline w3-text-red w3-border-red w3-hover-red"><i class="fa fa-trash"></i></button>
-				</form>
+					<button class="btn outline w3-text-red w3-border-red w3-hover-red" data-myid="{{$post['id']}}" data-role="deletepost"><i class="fa fa-trash"></i></button>
+				</div>
 			@endif
 		@endauth
 	</div>

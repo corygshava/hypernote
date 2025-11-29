@@ -1,9 +1,11 @@
 let boxes = undefined;
 let mymdl = undefined;
+let delform = undefined;
 
 window.addEventListener('load', () => {
 	boxes = document.querySelectorAll('.postbox.card');
 	mymdl = document.querySelector('[data-role="postmodal_"]');
+	delform = document.querySelector('[data-role="happimod"]');
 
 	mymdl.addEventListener('click',(e) => {
 		mbox = e.target.closest('.modal-content');
@@ -18,13 +20,15 @@ window.addEventListener('load', () => {
 	})
 
 	init_boxes();
+	init_btns();
 });
 
 function init_boxes() {
 	boxes.forEach((el,m) => {
 		el.addEventListener('click',(e) => {
 			console.log('click registered',e);
-			if(e.target.className.includes('fa') || e.target.className.includes('btn')){
+			if(e.target.closest('.btn') != null){
+				// alert_danger('button clicked');
 				return;
 			}
 
@@ -53,6 +57,25 @@ function init_boxes() {
 
 			console.log(el.dataset.creator, el.dataset.title, el.dataset.msg, el.dataset.timestamps);
 		})
+
+		const delb = el.querySelector('[data-role="deletepost"]');
+		if(delb != null){
+			const cbk = () => {
+				alert_info('deleting that post');
+				const id = el.dataset.myid;
+
+				if(delform == null){
+					alert_danger('deletion impossible');
+					return;
+				}
+
+				delform.action = `./delete-post/${id}`;
+				delform.submit();
+			}
+			delb.addEventListener('click',() => {
+				confirmAction("Confirm delete","are you sure you want to delete this post",cbk);
+			})
+		}
 	});
 }
 

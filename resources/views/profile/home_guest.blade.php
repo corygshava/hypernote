@@ -5,7 +5,7 @@
             <span>you aint logged in</span>
         </div>
 
-        <div class="tabnav flowline centroid gap-sm spacy-md w3-animate-opacity">
+        <div class="tabnav flowline centroid gap-sm spacy-md w3-animate-opacity" style="flex-direction: row">
             <button class="btn outline active" data-role="tab-btn">login</button>
             <button class="btn outline" data-role="tab-btn">register</button>
         </div>
