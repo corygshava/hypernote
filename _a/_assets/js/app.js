@@ -43,7 +43,7 @@ function init_boxes() {
 
 			ui_creator.innerHTML = `<span class="text-gld">by <b class="themetxt">${el.dataset.creator}</b></span>`;
 			ui_title.innerText = `${el.dataset.title}`;
-			if(el.dataset.msg.includes('[richtext]')){
+			if(el.dataset.msg.toLowerCase().includes('[richtext]')){
 				let msg = el.dataset.msg.replaceAll('[richtext]',"");
 				ui_mybody.innerHTML = `${msg}`;
 			} else {
