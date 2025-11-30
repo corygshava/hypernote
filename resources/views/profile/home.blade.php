@@ -44,7 +44,7 @@
                 <span class="h3">Your posts</span>
             </div>
 
-            <div class="flowline gap-md overflow-safe">
+            <div class="flowline gap-md overflow-safe overflow">
             @if (count($posts) == 0)
                 <div class="w3-center spacy-md">
                     <div>
