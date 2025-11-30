@@ -47,7 +47,7 @@
 
 	<!-- Bootstrap JS (Optional) -->
 	<script src="_assets/js/jquery-3.5.1.slim.min.js"></script>
-	<script src="_assets/bs4/js/bootstrap.bundle.min.js"></script>
+	<script src="_assets/BS4/js/bootstrap.bundle.min.js"></script>
 	<script src="_assets/js/SuperScript.js"></script>
 	<script src="_assets/js/toappend.js"></script>
 	<script src="_assets/js/coryG_UIOps.js"></script>
