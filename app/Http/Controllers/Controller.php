@@ -145,7 +145,7 @@ abstract class Controller{
 			'user_data' => [
 				'deliveryCharge' => 300,
 				'valueCutoff' => 30000,
-				'sitelink' => 'https://app.haoselkenya.com/_hypernote/_a/',
+				'sitelink' => 'https://apps.haoselkenya.com/_hypernote/_a/',
 				'dev_sitelink' => 'http://localhost/lrvl_hypernote/_a/',
 				'PendingOrderLifetime' => 12,
 				'NewSubPromocode' => 'NEWSUBSCRIBER_Y1',
