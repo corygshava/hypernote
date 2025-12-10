@@ -7,17 +7,18 @@ window.addEventListener('load', () => {
 	mymdl = document.querySelector('[data-role="postmodal_"]');
 	delform = document.querySelector('[data-role="happimod"]');
 
-	mymdl.addEventListener('click',(e) => {
-		mbox = e.target.closest('.modal-content');
-		console.log(mbox);
+	if(mymdl != null)
+		mymdl.addEventListener('click',(e) => {
+			mbox = e.target.closest('.modal-content');
+			console.log(mbox);
 
-		if(mbox == null){
-			const closebtn = mymdl.querySelector('[data-role="closebtn"]');
-			if(closebtn != undefined){
-				closebtn.click();
+			if(mbox == null){
+				const closebtn = mymdl.querySelector('[data-role="closebtn"]');
+				if(closebtn != undefined){
+					closebtn.click();
+				}
 			}
-		}
-	})
+		})
 
 	init_boxes();
 	// init_btns();

@@ -45,17 +45,19 @@
 					<span class="h3" data-subrole="mytitle">{{$post->title}}</span>
 
 					<div class="w3-display-topright">
-						<button class="btn primary" data-copythis="#postlink" data-isquiet="no" data-successtxt="note copied successfully"><i class="fa fa-share"></i></button>
-						<button class="btn primary" data-copythis="#modalmessage" data-isquiet="no" data-successtxt="note copied successfully"><i class="fa fa-copy"></i></button>
+						<button class="btn primary" data-copythis="#postlink" data-isquiet="no" data-successtxt="link copied successfully"><i class="fa fa-share"></i></button>
+						<button class="btn primary" data-copythis="#modalmessage" data-isquiet="no" data-themode="html" data-successtxt="note copied successfully"><i class="fa fa-copy"></i></button>
 						<button class="btn outline" data-goto="./feed" data-toggler="[data-role='postmodal_']" data-special="yes"><i class="fa fa-times"></i> close</button>
 					</div>
 				</div>
 
-				<div class="" data-subrole="mybody" id="modalmessage">
+				<div>
 					@if (str_contains($post->body, '[richtext]'))
-						{!! $mybody !!}
+						<div class="" data-subrole="mybody" id="modalmessage">
+							{!! $mybody !!}
+						</div>
 					@else
-						{{ $mybody }}
+						<textarea data-subrole="mybody" id="modalmessage" cols="30" rows="10" class="postDisplay">{{ $mybody }}</textarea>
 					@endif
 				</div>
 

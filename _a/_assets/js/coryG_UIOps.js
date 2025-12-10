@@ -416,13 +416,14 @@ let tg_contents = {};
 		gotos.forEach(el => {
 			if(el.dataset.picker == undefined || el.dataset.picker !== picker){
 				el.dataset.picker = picker;
+				let themode = el.dataset.themode || 'text';
 				const mytarget = document.querySelector(el.dataset.copythis);
 
 				el.addEventListener('click',() => {
 					let target = mytarget;
 
 					if(target != undefined){
-						const _2copy = target.innerText;
+						const _2copy = themode == 'text' ? target.innerText : target.innerHTML;
 						let resb = copytext1(_2copy);
 						let succeed = el.dataset.successtext || 'text copied successfully';
 						let fail = el.dataset.failtext || 'text copied successfully';
