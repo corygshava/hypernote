@@ -57,7 +57,7 @@
 							{!! $mybody !!}
 						</div>
 					@else
-						<textarea data-subrole="mybody" id="modalmessage" cols="30" rows="10" class="postDisplay">{{ $mybody }}</textarea>
+						<textarea data-subrole="mybody" id="modalmessage" cols="30" rows="10" class="postDisplay" readonly>{{ $mybody }}</textarea>
 					@endif
 				</div>
 
