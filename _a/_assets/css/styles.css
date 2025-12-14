@@ -25,6 +25,9 @@
         background: transparent;
         color: var(--clr-text);
         border: none;
-        /*pointer-events: none;*/
         width: 100%;
+        min-height: 60vh;
+    }
+    .postDisplay:focus{
+        outline: none;
     }

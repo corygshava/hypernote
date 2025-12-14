@@ -21,9 +21,9 @@
 
 .s-autoform-v.con{padding: 12px 15px;background: transparent;box-shadow: 3px 3px 20px rgba(0,0,0,0.3);}
 .s-autoform-v label,.s-autoform-v .label{display: inline-block;width: 100%;padding: 4px 6px;}
-.s-autoform-v input:not([type="radio"]):not([type="checkbox"]), .s-autoform-v textarea,.s-autoform-v select {border-radius: 12px;border: 1px solid grey;padding: 12px;width: 100%;background: #101010;margin: 8px 0;color: #fff}
+.s-autoform-v input:not([type="radio"]):not([type="checkbox"]), .s-autoform-v textarea,.s-autoform-v select {border-radius: 12px;border: 1px solid grey;padding: 8px 12px;width: 100%;background: #101010;margin: 8px 0;color: #fff}
 .s-autoform-v input:not([type="radio"]):not([type="checkbox"]):focus, .s-autoform-v textarea:focus,.s-autoform-v select:focus {outline: none;scale: 1.01;border: 1px solid var(--s-accent);box-shadow: 0 0 12px var(--s-accent);}
-.s-autoform-v button{display: inline-block;border:none;width: 100%;padding: 16px;border-radius: 15px;margin: 15px 0px;background: #144168;color: #fefffe;}.s-autoform-iv button[type="submit"]:hover{background: #41c3f6;}.s-autoform-iv button[type="reset"]:hover{background: #ed1010;}
+.s-autoform-v button{display: inline-block;border:none;width: 100%;padding: 8px 16px;border-radius: 15px;margin: 15px 0px;background: #144168;color: #fefffe;}.s-autoform-iv button[type="submit"]:hover{background: #41c3f6;}.s-autoform-iv button[type="reset"]:hover{background: #ed1010;}
 .s-autoform-v h2,.s-autoform-v h3,.s-autoform-v h4{display: block;font-weight: bold;text-align: center;color: #f88a2d;}
 
 @media only screen and (max-width: 760px){
