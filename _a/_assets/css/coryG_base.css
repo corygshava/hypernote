@@ -1,5 +1,5 @@
 
-@media(prefers-color-scheme: light){
+/*@media(prefers-color-scheme: light){*/
 	:root{
 		--clr-bg: #efefef;
 		/* --clr-bg: red; */
@@ -11,9 +11,9 @@
 		--clr-text: #222;
 		--clr-text-muted: #777;
 	}
-}
+/*}
 
-@media(prefers-color-scheme: dark){
+@media(prefers-color-scheme: dark){*/
 	:root{
 		--clr-bg: #121212;          /* Main background */
 		--clr-bgglass: #121212aa;   /* Glassy overlay on dark bg */
@@ -24,7 +24,7 @@
 		--clr-text: #f0f0f0;        /* Main text (light on dark bg) */
 		--clr-text-muted: #5c5c5c;  /* Muted/secondary text */
 	}
-}
+/*}*/
 
 :root {
 	--themecolor: #0ffd6e;   /* main lavender / purple */
