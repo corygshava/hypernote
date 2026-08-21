@@ -1,1 +1,6 @@
-_api/appdata.json
+/_api/appdata.json
+
+# laravel stuff
+/vendor
+/storage
+/bootstrap
