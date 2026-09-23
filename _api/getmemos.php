@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
 
-$file = __DIR__ . "/appdata.json";
+$file = __DIR__ . "/../storage/runtime/appdata.json";
 
 // If file doesn’t exist or is empty → return empty array
 if (!file_exists($file)) {

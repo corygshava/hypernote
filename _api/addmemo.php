@@ -27,7 +27,7 @@ if ($key !== $thepass) {
     respond(false, "Invalid access key.");
 }
 
-$file = __DIR__ . "/appdata.json";
+$file = __DIR__ . "/../storage/runtime/appdata.json";
 
 // Read or initialize
 $data = [];
