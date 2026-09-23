@@ -1,0 +1,2 @@
+make a section
+section.section[aria-labelledby="stats-heading"]>.section-inner>(.section-label.reveal{heading}+(.section-title.reveal#stats-heading{our}>span.gradtxt{stats})+p.section-desc.reveal)

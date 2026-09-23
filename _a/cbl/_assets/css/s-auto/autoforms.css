@@ -1,0 +1,34 @@
+
+.s-autoform-i{padding: 20px 15px;box-shadow: 3px 3px 10px #dedddd;}
+.s-autoform-i input,.s-autoform-i textarea {border-radius: 5px;border:2px solid #c2bbbb;padding: 5px;width: 100%;background: transparent;margin: 15px 0px;}
+.s-autoform-i button{display: inline-block;border:none;width: 49%;padding: 10px;background: #505050;color: #fefefe;}.s-autoform-i button[type="submit"]:hover{background: #f0cc0a;}.s-autoform-i button[type="reset"]:hover{background: firebrick;}
+.s-autoform-i h2,.s-autoform-i h3,.s-autoform-i h4{display: block;font-weight: bold;text-align: center;color: gold;}
+
+.s-autoform-ii{padding: 20px 15px;box-shadow: 3px 3px 10px #dedddd;}
+.s-autoform-ii input,.s-autoform-ii textarea {border-radius: 0px;border:none;border-bottom:2px solid #13725a;padding: 5px;width: 100%;background: transparent;margin: 15px 0px;}
+.s-autoform-ii button{display: inline-block;border:none;width: 49%;padding: 10px;}.s-autoform-ii button[type="submit"]:hover{background: #f88a2d;}.s-autoform-ii button[type="reset"]:hover{background: #ed1010;}
+.s-autoform-ii h2,.s-autoform-ii h3,.s-autoform-ii h4{display: block;font-weight: bold;text-align: center;color: #f88a2d;}
+
+.s-autoform-iii{padding: 20px 15px;background: transparent;}
+.s-autoform-iii input,.s-autoform-iii textarea {border-radius: 15px;border:none;padding: 16px;width: 80%;background: rgba(255,255,255,0.5);margin: 15px 0px;}
+.s-autoform-iii button{display: inline-block;border:none;width: 80%;padding: 16px;border-radius: 15px;margin: 15px 0px;background: #144168;color: #fefffe;}.s-autoform-iii button[type="submit"]:hover{background: #41c3f6;}.s-autoform-iii button[type="reset"]:hover{background: #ed1010;}
+.s-autoform-iii h2,.s-autoform-iii h3,.s-autoform-iii h4{display: block;font-weight: bold;text-align: center;color: #f88a2d;}
+
+.s-autoform-iv{padding: 20px 15px;background: transparent;box-shadow: 3px 3px 20px rgba(0,0,0,0.3);}
+.s-autoform-iv input,.s-autoform-iv textarea {border-radius: 15px;border:none;padding: 16px;width: 80%;background: rgba(255,255,255,0.5);margin: 15px 0px;}
+.s-autoform-iv button{display: inline-block;border:none;width: 80%;padding: 16px;border-radius: 15px;margin: 15px 0px;background: #144168;color: #fefffe;}.s-autoform-iv button[type="submit"]:hover{background: #41c3f6;}.s-autoform-iv button[type="reset"]:hover{background: #ed1010;}
+.s-autoform-iv h2,.s-autoform-iv h3,.s-autoform-iv h4{display: block;font-weight: bold;text-align: center;color: #f88a2d;}
+
+@media only screen and (max-width: 760px){
+	.s-autoform-i,.s-autoform-ii,.s-autoform-ii,.s-autotable-i{width:95%;margin: 20px 2.5%;}
+	.s-automodal-ii{width: 95%;margin:25px 2.5%;}
+}
+@media only screen and (min-width: 760px){
+	.s-autoform-i,.s-autoform-ii,.s-autoform-ii,.s-autotable-i{width:80%;margin: 20px 10%;}
+	.s-automodal-ii{width: 70%;margin:5% 15%;}
+}
+@media only screen and (min-width: 950px){
+	.s-autoform-i,.s-autoform-ii.s-autoform-ii,{width:60%;margin: 20px 15%;}
+	.s-automodal-ii{width:60%;margin:4% 20%;}
+	.s-automodal-i,.s-autotable-i{width:50%;margin: 25px 25%;}
+}

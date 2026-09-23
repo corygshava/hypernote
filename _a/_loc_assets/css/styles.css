@@ -1,0 +1,14 @@
+/* .formholder */
+    .formholder{
+        width: 100%;
+        max-width: 400px;
+    }
+    .formholder form.t1{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 0 0 0;
+    }
+    .mytab:not(.active){
+        display: none;
+    }

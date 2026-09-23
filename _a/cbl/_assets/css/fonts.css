@@ -1,0 +1,96 @@
+/* fonts.css */
+@font-face {
+    font-family: 'AlfaqixD';
+    src: url('../fonts/AlfaqixDiode-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'BrandinkSans Light';
+    src: url('../fonts/BrandinkSans-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'BrandinkSans';
+    src: url('../fonts/BrandinkSans.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'ColitezSerif';
+    src: url('../fonts/ColitezSerif-Italic.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'DubbaDubbaNF';
+    src: url('../fonts/DubbaDubbaNF.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Inter_18pt';
+    src: url('../fonts/Inter_18pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter_24pt';
+    src: url('../fonts/Inter_24pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter_28pt';
+    src: url('../fonts/Inter_28pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Migha';
+    src: url('../fonts/Migha_Variable.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Rabelo';
+    src: url('../fonts/Rabelo Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SPORTIFITY';
+    src: url('../fonts/SPORTIFITY.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'TerminalDosis';
+    src: url('../fonts/TerminalDosis-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'TypeLightSans';
+    src: url('../fonts/TypeLightSans.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'YukitaSans-ExtraBold';
+    src: url('../fonts/YukitaSans-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'YukitaSans-Medium';
+    src: url('../fonts/YukitaSans-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'YukitaSans';
+    src: url('../fonts/YukitaSans-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/NunitoSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Textmeone';
+    src: url('../fonts/TextMeOne-Regular.ttf') format('truetype');
+}
+
