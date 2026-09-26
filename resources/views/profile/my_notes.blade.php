@@ -1,6 +1,10 @@
 <?php
-	require_once __DIR__.'/codes_datadisplay.php';
+	// require_once __DIR__.'/codes_datadisplay.php';
 ?>
+
+{{-- <!-- --}}
+@include('pieces.codes_datadisplay')
+{{-- --> --}}
 
 <style>
 	.page-header{

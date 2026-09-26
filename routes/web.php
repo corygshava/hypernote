@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,7 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('/ui')->group(function () {
-    // Route::get();
+    Route::get('/my_notes', [ViewController::class, 'show_my_notes']);
 });
 
 require __DIR__.'/auth.php';
