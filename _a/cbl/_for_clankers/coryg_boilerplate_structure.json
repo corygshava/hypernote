@@ -1,0 +1,178 @@
+{
+    "./": [
+        ".gitignore",
+        {
+            "_assets": [
+                {
+                    "_vendor": [
+                        {
+                            "BS4": [
+                                {
+                                    "css": [
+                                        "bootstrap-grid.css",
+                                        "bootstrap-grid.css.map",
+                                        "bootstrap-grid.min.css",
+                                        "bootstrap-grid.min.css.map",
+                                        "bootstrap-reboot.css",
+                                        "bootstrap-reboot.css.map",
+                                        "bootstrap-reboot.min.css",
+                                        "bootstrap-reboot.min.css.map",
+                                        "bootstrap.css",
+                                        "bootstrap.css.map",
+                                        "bootstrap.min.css",
+                                        "bootstrap.min.css.map"
+                                    ]
+                                },
+                                {
+                                    "js": [
+                                        "bootstrap.bundle.js",
+                                        "bootstrap.bundle.js.map",
+                                        "bootstrap.bundle.min.js",
+                                        "bootstrap.bundle.min.js.map",
+                                        "bootstrap.js",
+                                        "bootstrap.js.map",
+                                        "bootstrap.min.js",
+                                        "bootstrap.min.js.map"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "misc": [
+                                "html2canvas.min.js",
+                                "jquery-3.6.0.min.js",
+                                "jspdf.umd.min.js",
+                                "pdf.min.js",
+                                "pdf.worker.min.js",
+                                "popper.min.js",
+                                "qrcode.min.js"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "css": [
+                        "animate.css",
+                        "animations.css",
+                        "coryG_base.css",
+                        "coryG_UIOps.css",
+                        "fa-all.css",
+                        "fonts.css",
+                        "inter_slop.css",
+                        "mediaoptima.css",
+                        {
+                            "s-auto": [
+                                "autobuttons.css",
+                                "autoforms.css",
+                                "autonavs.css"
+                            ]
+                        },
+                        "s-auto.css",
+                        "styles.css",
+                        "w3.css"
+                    ]
+                },
+                {
+                    "fonts": [
+                        "AlfaqixDiode-SemiBold.otf",
+                        "BrandinkSans-Light.otf",
+                        "BrandinkSans.otf",
+                        "ColitezSerif-Italic.otf",
+                        "DubbaDubbaNF.otf",
+                        "index.php",
+                        "Inter_18pt-Regular.ttf",
+                        "Inter_24pt-Regular.ttf",
+                        "Inter_28pt-Regular.ttf",
+                        "Migha_Variable.ttf",
+                        "Montserrat-SemiBold.otf",
+                        "NunitoSans-Regular.ttf",
+                        "Rabelo Regular.otf",
+                        "SPORTIFITY.otf",
+                        "TerminalDosis-Regular.ttf",
+                        "TextMeOne-Regular.ttf",
+                        "TypeLightSans.otf",
+                        "YukitaSans-ExtraBold.otf",
+                        "YukitaSans-Medium.otf",
+                        "YukitaSans-Regular.otf"
+                    ]
+                },
+                {
+                    "img": [
+                        {
+                            "demos": [
+                                "contact_pic.jpg",
+                                "demoimg1.jpg",
+                                "demoimg2.jpg",
+                                "demoimg3.jpg",
+                                "image-127.jpeg"
+                            ]
+                        },
+                        {
+                            "templates": [
+                                "greenhouse.png",
+                                "inventoryman.png",
+                                "matchpredict.png",
+                                "uploadguy.png"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "js": [
+                        "anims.js",
+                        "app.js",
+                        "chart.js",
+                        "coryG_UIOps.js",
+                        "customalerter.js",
+                        "multimedia.js",
+                        "super_encryptor.js",
+                        "SuperScript.js",
+                        "toappend.js",
+                        "trailer.js",
+                        "w3.js"
+                    ]
+                },
+                {
+                    "webfonts": [
+                        "fa-brands-400.eot",
+                        "fa-brands-400.svg",
+                        "fa-brands-400.ttf",
+                        "fa-brands-400.woff",
+                        "fa-brands-400.woff2",
+                        "fa-regular-400.eot",
+                        "fa-regular-400.svg",
+                        "fa-regular-400.ttf",
+                        "fa-regular-400.woff",
+                        "fa-regular-400.woff2",
+                        "fa-solid-900.eot",
+                        "fa-solid-900.svg",
+                        "fa-solid-900.ttf",
+                        "fa-solid-900.woff",
+                        "fa-solid-900.woff2"
+                    ]
+                }
+            ]
+        },
+        {
+            "_justin": [
+                "index_reimagined.html",
+                "index_reimagined_copy.html"
+            ]
+        },
+        {
+            "_local": [
+                {
+                    "js": [
+                        "html2canvas.js"
+                    ]
+                },
+                "new_items_tryout.html"
+            ]
+        },
+        "coryg_boilerplate_structure.txt",
+        "index.html",
+        "login.html",
+        "starter.html",
+        "uikit_0.html"
+    ]
+}

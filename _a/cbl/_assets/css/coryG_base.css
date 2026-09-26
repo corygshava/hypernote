@@ -16,6 +16,7 @@
 	--clr-shadow: rgba(100,100,100,0.3);
 	--clr-modeglass: #d7d7d777;
 	--clr-panelbg: #fff;
+	--clr-panelbg2: #fff;
 	--clr-darkglass: #000000aa;
 	--clr-whiteglass: #efefef55;
 	--clr-alttext: #fff;
@@ -100,6 +101,7 @@ body[data-mode="dark"] {
 	--light-gray: #444;
 	--lighter-gray: #333;
 	--clr-modeglass: #1214259e;
+	--clr-panelbg2: #181511;
 }
 body.t1{
 	display: flex;
@@ -230,7 +232,12 @@ a:hover{
 			border-radius: 100px;
 		}
 		.mybtn.sm {
-			padding: 8px 16px;
+			padding: 4px 16px;
+			font-size: 0.8rem;
+		}
+		.mybtn.tn{
+			padding: 4px 8px;
+			font-size: 0.6rem;
 		}
 
 		.mybtn.trans {
@@ -284,12 +291,20 @@ a:hover{
 		}
 
 		.mybtn2.sm{
-			padding: 8px 12px;
+			padding: 4px 12px;
 			font-size: 0.8rem;
 		}
 		.mybtn2.tn{
 			padding: 4px 8px;
 			font-size: 0.6rem;
+		}
+
+		.mybtn2.trans {
+		    background: none;
+		    color: var(--clr-text);
+		}
+		.mybtn2.trans:hover {
+			color: var(--themecolor);
 		}
 
 		.circle_btn{
@@ -961,6 +976,7 @@ a:hover{
 	.themeround{border-radius: var(--roundness) !important;}
 	.modebg{background-color: var(--clr-bg);}
 	.panelbg{background-color: var(--clr-panelbg) !important;}
+	.panelbg2{background-color: var(--clr-panelbg2) !important;}
 	.gradtxt {
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;

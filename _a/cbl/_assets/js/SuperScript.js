@@ -105,33 +105,34 @@ function GetElement(me) {
 	return me;
 }
 
-function tabSwitch(no,series,norm,select,mode = 'classswitch') {
-	var items = document.querySelectorAll(series);
-	console.log('tabswitch items ',items);
-	window['globaldebug'] = items;
+// small change on 09/sept/2026 to make it more versatile
+	function tabSwitch(no,series,norm,select,mode = 'classswitch') {
+		var items = document.querySelectorAll(series);
+		console.log('tabswitch items ',items);
+		window['globaldebug'] = items;
 
-	norm = norm != '' ? norm : mekRandomString(3);
-	select = select != '' ? select : mekRandomString(3);
+		norm = norm != '' ? norm : mekRandomString(3);
+		select = select != '' ? select : mekRandomString(3);
 
-	if(no > items.length){
-		no = no % items.length;
-	}
-
-	items.forEach((item,id) => {
-		if(item == undefined){
-			alert_danger('invalid item');
-			return;
+		if(no > items.length){
+			no = no % items.length;
 		}
 
-		globaldebug = item;
+		items.forEach((item,id) => {
+			if(item == undefined){
+				alert_danger('invalid item');
+				return;
+			}
 
-		let cl = id != no ? 'add' : 'remove';
-		let cl2 = id == no ? 'add' : 'remove';
+			globaldebug = item;
 
-		item.classList[cl](norm);
-		item.classList[cl2](select);
-	})
-}
+			let cl = id != no ? 'add' : 'remove';
+			let cl2 = id == no ? 'add' : 'remove';
+
+			item.classList[cl](norm);
+			item.classList[cl2](select);
+		})
+	}
 
 function tabSwitch2(no,series,norm,select) {
 	var items = document.querySelectorAll(series);
@@ -516,11 +517,9 @@ function startCountdown(targetDate,format,ifexpired,suffix) {
 
 	return updateCountdown();
 }
-
 function findIndex(arr, searchString) {
 	return arr.findIndex(element => element.includes(searchString));
 }
-
 function typetext(duration,word) {
 	let letr = 0,wad = "";
 
@@ -534,9 +533,8 @@ function typetext(duration,word) {
 		}
 	},(duration * 1000) / (word.length))
 }
-
 function openinnewtab(url) {
-    window.open(url, '_blank');
+	window.open(url, '_blank');
 }
 
 function clamp01(n,min,max) {
@@ -549,29 +547,25 @@ function clamp01(n,min,max) {
 
 	return res;
 }
-
 function openWhatsApp(number) {
-    const url = `https://wa.me/${number}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+	const url = `https://wa.me/${number}`;
+	window.open(url, '_blank', 'noopener,noreferrer');
 }
-
 function sendWhatsAppMessage(phoneNumber, message) {
-    // Sanitize the phone number and encode the message for URL
-    const sanitizedNumber = phoneNumber.replace(/\D/g, ''); // Remove non-digit characters using regex
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${sanitizedNumber}?text=${encodedMessage}`;
+	// Sanitize the phone number and encode the message for URL
+	const sanitizedNumber = phoneNumber.replace(/\D/g, ''); // Remove non-digit characters using regex
+	const encodedMessage = encodeURIComponent(message);
+	const whatsappUrl = `https://wa.me/${sanitizedNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappUrl, '_blank');
+	window.open(whatsappUrl, '_blank');
 }
-
 function hasDatePassed(dateString) {
-    const inputDate = new Date(dateString);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+	const inputDate = new Date(dateString);
+	const today = new Date();
+	today.setHours(0, 0, 0, 0);
 
-    return inputDate < today;
+	return inputDate < today;
 }
-
 function changeAllClasses(theclass,newclass) {
 	let all = document.querySelectorAll(`.${theclass}`);
 
@@ -601,10 +595,10 @@ function revertAllClasses() {
 }
 
 function scrollToElement(sel) {
-    const element = document.querySelector(sel);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+	const element = document.querySelector(sel);
+	if (element) {
+		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
 }
 
 function runAfter(what,delay) {
