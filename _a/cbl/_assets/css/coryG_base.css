@@ -50,6 +50,7 @@
 	--span-md: 700px;
 	--span-lg: 800px;
 	--span-mg: 1280px;
+	--roundness-sm: 8px;
 	--roundness: 12px;
 	--rounder: 20px;
 	--roundest: 100px;
@@ -210,7 +211,7 @@ a:hover{
 		.banner a{
 			color: #fff;
 		}
-	
+
 	/* ---------- 1. Buttons ---------- */
 		.mybtn{
 			display:inline-flex;

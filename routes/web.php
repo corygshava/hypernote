@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,15 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('/ui')->group(function () {
     Route::get('/my_notes', [ViewController::class, 'show_my_notes']);
+    Route::get('/{p}', [ViewController::class, 'showme']);
+});
+
+Route::prefix('/data')->group(function () {
+    Route::get('/my_notes',[PostController::class, 'get_my_notes']);
+});
+
+Route::prefix('/data/stats')->group(function () {
+    Route::get('/my_notes',[PostController::class, 'get_my_notes_stats']);
 });
 
 require __DIR__.'/auth.php';

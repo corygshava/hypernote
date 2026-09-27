@@ -60,6 +60,95 @@
 			border-color: var(--primary);
 			box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 		}
+
+
+	/* Empty State */
+		.empty-state {
+			text-align: center;
+			padding: 60px 20px;
+			display: none;
+		}
+		.empty-state.show {
+			display: block;
+		}
+		.empty-icon {
+			width: 80px;
+			height: 80px;
+			background: var(--primary-light);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 20px;
+			color: var(--primary);
+			font-size: 32px;
+		}
+		.empty-state h3 {
+			font-size: 18px;
+			color: var(--dark);
+			margin-bottom: 10px;
+		}
+		.empty-state p {
+			color: var(--gray);
+			font-size: 14px;
+		}
+
+	/* Toast Notification */
+		.toast-container {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			z-index: 3000;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.toast_ {
+			background: white;
+			border-radius: var(--radius-sm);
+			padding: 16px 20px;
+			box-shadow: var(--shadow-lg);
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			min-width: 300px;
+			border-left: 4px solid;
+		}
+		.toast.success { border-left-color: var(--success); }
+		.toast.error { border-left-color: var(--danger); }
+		.toast.info { border-left-color: var(--info); }
+		.toast-icon {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 12px;
+		}
+		.toast.success .toast-icon { background: #d1fae5; color: var(--success); }
+		.toast.error .toast-icon { background: #fee2e2; color: var(--danger); }
+		.toast.info .toast-icon { background: #dbeafe; color: var(--info); }
+		.toast-content {
+			flex: 1;
+		}
+		.toast-title {
+			font-weight: 600;
+			font-size: 14px;
+			color: var(--dark);
+		}
+		.toast-message {
+			font-size: 13px;
+			color: var(--gray);
+			margin-top: 2px;
+		}
+		.toast-close {
+			background: none;
+			border: none;
+			color: var(--gray);
+			cursor: pointer;
+			padding: 4px;
+		}
 </style>
 
 <div class="page-header">
@@ -69,8 +158,9 @@
 
 <div class="page-part" id="notes_container">
 	<div data-role="sorter_container" class="w3-center"><div class="loader_2"></div></div>
-	<div data-role="notes_stats" class="w3-center"></div>
+	<div data-role="notes_stats" class="w3-center stats-holder"></div>
 	<div data-role="filters_container" class="w3-center"></div>
+	<!-- <div data-role="stats_ui"></div> -->
 	<div class="w3-display-container">
 		<div data-role="notes_display"></div>
 		<div data-role="loader_ui"></div>
@@ -89,7 +179,7 @@
 	}
 
 	window['loadMyNotes'] = () => {
-		notes_container.querySelector('[data-role="notes_display"]').innerHTML = mekStandin(mekDiv(`loading your notes<div class="loader_2"></div>`,'flow center overflow gap-md'));
+		// notes_container.querySelector('[data-role="notes_display"]').innerHTML = mekStandin(mekDiv(`loading your notes<div class="loader_2"></div>`,'flow center overflow gap-md'));
 
 		config = {
 			entity_name: 'notes',
@@ -101,7 +191,7 @@
 			ui_sortHead: '#notes_container [data-role="sorter_container"]',
 			ui_filterContainer: '#notes_container [data-role="filters_container"]',
 			ui_loading: '#notes_container [data-role="loader_ui"]',
-			ui_stats: '#notes_container [data-role="loader_ui"]',
+			ui_stats: '#notes_container [data-role="notes_stats"]',
 
 			enableSort: true,
 			enableFilters: true,

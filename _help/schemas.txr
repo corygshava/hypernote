@@ -1,0 +1,11 @@
+Posts
+    user_id
+    privacy_state
+        1 - public
+        2 - private
+        3 - unlisted
+        4 - temporary
+    title
+    body
+
+    timestamps
