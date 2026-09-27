@@ -22,8 +22,6 @@
 			border-radius: var(--roundness);
 			padding: 20px;
 			margin-bottom: 20px;
-			/*box-shadow: var(--shadow-sm);*/
-			/*border: 1px solid var(--border);*/
 		}
 		.filter-row {
 			display: flex;
@@ -149,6 +147,7 @@
 			cursor: pointer;
 			padding: 4px;
 		}
+
 </style>
 
 <div class="page-header">
