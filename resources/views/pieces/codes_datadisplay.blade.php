@@ -272,13 +272,19 @@
 								type: 'button',
 								btype: 'outline',
 								_class: 'sm',
-								_props: `onclick="sortbyme_2('${col.data}','${col.title}','${this.serial}')" data-myobj='${JSON.stringify(col)}'`,
+								_props: `onclick="sortbyme_2('${col.data}','${col.title}','${this.serial}',this)" data-myobj='${JSON.stringify(col)}'`,
 								icon: sortIcon
 							});
 						}
 					});
 
-					outht = outht == '' ? '' : mekDiv(outht,'flow left overflow');
+					let ancht = `
+						<div class="py-2 flow left">
+							<span class="titletext">sort by</span>
+						</div>
+					`;
+
+					outht = outht == '' ? '' : ancht + mekDiv(outht,'flowline gap-sm left overflow pb-3');
 					thead.innerHTML = outht;
 				}
 				generateFilters = () => {
@@ -593,7 +599,7 @@
 		return it;
 	}
 
-	function sortbyme_2(who, title, serial) {
+	function sortbyme_2(who, title, serial,el) {
 		let item = getInstance(serial);
 		if(item == undefined){return;}
 
@@ -602,6 +608,22 @@
 			// LaravelDataTable.sortBy(who);
 			item.sortBy(who, title);
 		}
+
+		if(el == undefined){
+			return;
+		}
+
+		// window['last_sort_el'] = el;
+		// run some visual arts to make it obvious whats happening
+		let par = el.parentElement;
+
+		par.querySelectorAll('button').forEach(b => {
+			b.classList.remove('primary');
+			b.classList.add('outline');
+		})
+
+		el.classList.add('primary');
+		el.classList.remove('outline');
 	}
 
 	function filterme_2(w,wot, serial) {

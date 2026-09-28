@@ -187,7 +187,7 @@
 						rundataverify();
 						clear_alerts();
 						alert_success('loaded');
-					}, min_loadtime + 200);
+					}, min_loadtime + 0.200);
 
 				})
 			}
