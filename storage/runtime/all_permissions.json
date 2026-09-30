@@ -1,0 +1,25 @@
+{
+    "last_update": "2026-03-05T12:44:35.000000Z",
+    "permissions": {
+        "VIEW_DASHBOARD": "view the admin dashboard",
+        "VIEW_CONSOLE": "view the normal user dashboard",
+        "MANAGE_USER_ROLES": "view the different user roles",
+        "MANAGE_USERS": "view all registered users",
+        "MANAGE_CLIENTS": "view all registered clients",
+        "VIEW_CLIENT": "view all registered clients",
+        "MANAGE_TASKS": "view all tasks",
+        "ADD_TASK": "add a new task",
+        "MANAGE_SAMPLES": "view all sample records",
+        "MANAGE_PAYMENTS": "view all payment records",
+        "MANAGE_REPORTS": "view all reports",
+        "MANAGE_INVOICES": "view all invoices",
+        "MANAGE_BIZDATA": "view business data interface",
+        "MANAGE_EXPENSES": "view expenses interface",
+        "MANAGE_CASHREPORTS": "view cash reports interface",
+        "VERIFY_FILES": "view file verification interface",
+        "MANAGE_DEBTORS": "view all business debtors",
+        "TOGGLE_USER_ACTIVATE": "activate \/ deactivate user accounts",
+        "CHANGE_PASSWORDS": "change other users' passwords",
+        "CHANGE_OWN_PASSWORD": "change their own password"
+    }
+}

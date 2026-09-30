@@ -859,7 +859,8 @@ var confirm_toggler = undefined;
 				</select>
 			`;
 		} else if(typ == "textarea"){
-			inputht = `<textarea class="form-control-custom ${_inp_classes}" rows="3" name="${field}" id="${field}" placeholder="${placeholder}" ${_inp_props} ${_inp_req}>${val}</textarea>`
+			let x_rows = _inp_props.includes('rows=') ? '' : 'rows="3"';
+			inputht = `<textarea class="form-control-custom ${_inp_classes}" ${x_rows} name="${field}" id="${field}" placeholder="${placeholder}" ${_inp_props} ${_inp_req}>${val}</textarea>`
 		} else if(typ == "hidden"){
 			return inputht;
 		}
@@ -1171,6 +1172,114 @@ var confirm_toggler = undefined;
 
 			window[variableAtlas['get_input_inter']](fdata);
 		}
+
+	// special input setups
+		window['inp_tags_runtime_data'] = {};
+		window['inp_tags_uis'] = {};
+		window['inp_tags_process'] = (input, tags_dis, tags_input,serial = '--',mode=1) => {
+			// input (either a selector or an HTML element) input for tags
+			// tags_dis (either a selector or an HTML element) the thing that will preview the tags
+			// tags_input (either a selector or an HTML element) the thing that will hold the tags
+			// serial (a string for easy checking later) the thing that will hold the tags
+			// mode 1 -> runs on input,2 -> runs on keypress (defaults to 1)
+
+			if(typeof input == 'string'){
+				input = document.querySelector(input);
+			}
+			if(!(input instanceof HTMLElement)){
+				alert_silent('[inp_tags_process] - invalid input passed');
+				return;
+			}
+
+			if(typeof tags_dis == 'string'){
+				tags_dis = document.querySelector(tags_dis);
+			}
+			if(!(tags_dis instanceof HTMLElement)){
+				alert_silent('[inp_tags_process] - invalid tags_dis passed');
+				return;
+			}
+
+			if(typeof tags_input == 'string'){
+				tags_input = document.querySelector(tags_input);
+			}
+			if(!(tags_input instanceof HTMLElement)){
+				alert_silent('[inp_tags_process] - invalid tags_input passed');
+				return;
+			}
+
+			let val = input.value;
+			let ui_s = {
+				input,
+				tags_dis,
+				tags_input,
+			}
+			inp_tags_uis[serial] = ui_s;
+
+			if(!(val.includes(','))){
+
+				if(inp_tags_runtime_data[serial]){
+					inp_tags_update(tags_dis, tags_input, serial);
+					// return;
+				}
+				return;
+			}
+
+			let newtags = val.split(',');
+			let nt = inp_tags_runtime_data[serial] || [];
+			nt = [...nt,...newtags];
+			let newnt = [];
+
+			nt.forEach(f => {if(f != ''){newnt.push(f);}});
+			inp_tags_runtime_data[serial] = newnt;
+
+			inp_tags_update(tags_dis, tags_input, serial);
+			input.value = '';
+		}
+		window['inp_tags_update'] = (tags_dis, tags_input, serial) => {
+			let nt = inp_tags_runtime_data[serial] || [];
+			let tosave = nt.length > 0 ? '' : nt.join(',');
+
+			tags_input.value = tosave;
+
+			let outht = ``;
+			outht += [...nt]
+				.map((t,id) => {return t == '' ? `` : `<b class="mytag" onclick="inp_removetag(${id},'${serial}')">${t} <i class="fa fa-times"></i></b>`;})
+				.join('')
+			;
+			tags_dis.innerHTML = outht;
+		}
+		window['inp_tags_reset'] = (serial) => {
+			delete inp_tags_runtime_data[serial];
+		}
+		window['inp_removetag'] = (n,serial) => {
+			console.log('starting removal process');
+			let nt = inp_tags_runtime_data[serial];
+			console.log('data',nt);
+
+			if(nt == undefined){
+				console.log('no runtime data found');
+				return;
+			}
+			if(nt.length == 0){
+				console.log('no tags for this one');
+				return;
+			}
+
+			nt = nt.toSpliced(n,1);
+			inp_tags_runtime_data[serial] = nt;
+			console.log('new data',nt);
+
+			let ns = inp_tags_uis[serial];
+			console.log('my uis',ns);
+
+			if(ns == undefined){
+				console.log('no UIs setup');
+				return;
+			}
+
+			// ns.input.value
+			inp_tags_update(ns.tags_dis, ns.tags_input, serial);
+		};
 
 	// confirm action mech
 		function confirmAction(title=undefined,msg=undefined,callback=() => {alert_warning('testing dialog confirmation')},keepopen = false,canceller=()=>{}) {

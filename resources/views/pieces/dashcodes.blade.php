@@ -20,6 +20,12 @@
 		my_notes : './ui/my_notes',
 		my_feed : './ui/my_feed',
 		my_following : './ui/my_following',
+
+		// data getters
+		get_my_notes: './data/my_notes',
+
+		// operations
+		add_edit_note: './op/add_edit_note',
 	};
 	pageNames = {
 		profile : 'Your profile',
@@ -247,6 +253,138 @@
 					window['runOnAwake']();
 				}
 			}, min_loadtime);
+		}
+
+	// awlknawdnawk
+		function sendform(m,callback,onfail,tosend = undefined) {
+			// mekwark
+			let hasencrypted = false;
+			let ps = '';
+
+			if(m.dataset.submitting === true){
+				alert_danger('already submitting...');
+				return;
+			} else {
+				alert_info('submitting form...')
+			}
+
+			// callback mgt
+			if(callback == undefined){
+				if(m.dataset.callback){
+					console.log('callback: ',m.dataset.callback);
+					// alert_dark('callback: ' + m.dataset.callback);
+
+					callback = window[m.dataset.callback.trim()];
+				} else {
+					console.log('no fallback to the callback');
+					// alert_dark('no fallback to the callback');
+				}
+			} else {
+				if(typeof callback != "function"){
+					console.log('trying to read from a window variable');
+					// alert_dark('trying to read from a window variable');
+					callback = window[callback];
+				}
+			}
+
+			if(typeof callback == "function"){
+				console.log('valid callback')
+				// alert_dark('valid callback')
+			} else {
+				callback = (a) => {
+					alert_success('process successful');
+					console.log('default callback results: ',a);
+				};
+				console.log('not a function')
+				// alert_dark('not a function')
+			}
+
+			// onfail mgt
+			if(onfail == undefined){
+				if(m.dataset.onfail){
+					console.log('onfail: ',m.dataset.onfail);
+					// alert_dark('onfail: ' + m.dataset.onfail);
+
+					onfail = window[m.dataset.onfail.trim()];
+				} else {
+					console.log('no fallback to the onfail');
+					// alert_dark('no fallback to the onfail');
+				}
+			} else {
+				if(typeof onfail != "function"){
+					console.log('trying to read from a window variable');
+					// alert_dark('trying to read from a window variable');
+					onfail = window[onfail];
+				}
+			}
+
+			if(typeof onfail == "function"){
+				console.log('valid onfail')
+				// alert_dark('valid onfail')
+			} else {
+				onfail = (a) => {alert_danger('process failed')};
+				console.log('not a function')
+				// alert_dark('not a function')
+			}
+
+			// return;
+
+			// callback = callback == undefined ? (m.dataset.callback ? window[m.dataset.callback] : undefined) : callback;
+
+			callback = typeof callback == 'function' ? callback : () => {alert_info('invalid callback passed to sendform')};
+
+			m.style.pointerEvents = "none";
+			m.style.opacity = 0.2;
+			m.dataset.submitting = true;
+
+			if(m.admin_password !== undefined){
+				hasencrypted = true;
+				ps = m.admin_password.value;
+				m.admin_password.value = encryptme(ps,encsetup.offset,encsetup.salt,encsetup.chunks);
+			}
+
+			let fdata = tosend == undefined ? getFormdata(m) : tosend;
+			const sender = tosend == undefined ? window[fetch_bypass_fyls] : window[fetch_bypass];
+			const as_is = tosend == undefined;
+			let myres = undefined;
+			let myaction = m.action;
+			// console.log('fdata: ',fdata,'use as is: ',as_is);
+
+			if(myaction.includes('defined:')){
+				myaction = linkAtlas[myaction.split(':')[1]];
+			}
+
+			// add_edit_form.style.pointerEvents = "all";
+			sender(myaction,fdata,'POST',true,as_is).then(d => {
+				myres = d;
+
+				// console.log(callback);
+				// return;
+				responseHandler(d,callback,{'el': m,'data': d});
+
+				if(!d.success || !d.result){
+					onfail(d);
+				}
+				// console.log("finally, the result is: ",myres);
+				// callback(m);
+			})
+			.catch(err => {
+				alert_danger(err.message);
+				console.error(err);
+
+				if(onfail !== undefined){
+					onfail(err);
+				}
+			})
+			.finally(() => {
+				m.style.pointerEvents = "all";
+				m.style.opacity = 1;
+				m.dataset.submitting = false;
+
+				if(hasencrypted){
+					m.admin_password.value = ps;
+				}
+			})
 		}
 
 	// intent mgt

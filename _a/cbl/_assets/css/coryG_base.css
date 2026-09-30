@@ -211,7 +211,7 @@ a:hover{
 		.banner a{
 			color: #fff;
 		}
-
+	
 	/* ---------- 1. Buttons ---------- */
 		.mybtn{
 			display:inline-flex;
@@ -359,6 +359,37 @@ a:hover{
 		}
 		.form-control-custom[readonly="true"],.form-control-custom[readonly="true"] label{
 			opacity: 0.3;
+		}
+
+		/* special input setups*/
+		/* radio groups */
+		.radio_group{
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			flex-wrap: wrap;
+			gap: 8px;
+			/*border: 1px solid var(--clr-border);*/
+		}
+		.radio_group .radio_holder{
+			padding: 4px 16px;
+			border-radius: var(--roundness);
+			border: 1px solid var(--clr-border);
+			font-size: 0.8rem;
+			font-weight: 700;
+			cursor: pointer;
+		}
+		.radio_group .radio_holder:hover{
+			border: 1px solid var(--themecolor);
+			color: var(--themecolor);
+		}
+		.radio_group .radio_holder input[type="radio"]{
+			opacity: 0;
+			display: none;
+		}
+		.radio_group .radio_holder:has(input:checked){
+			background: var(--themecolor);
+			color: #fff;
 		}
 
 /* [new stuff] -------------------------------------------------------------------------------------------- */

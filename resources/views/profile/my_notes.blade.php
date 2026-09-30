@@ -32,10 +32,11 @@
 		</div>
 	</div>
 
-	<div class="collapser spacy-tn themeround onshow_border">
+	<div class="collapser spacy-tn themeround border-bottom onshow_border">
 		<div class="spacy-sm m_pointer topper" data-toggle="collapse" data-target='[data-role="sort_options"]'>
 			<span class="text-decoration-none flowline spread centerline" href="#sampleInfo">
 				<span class="text-uppercase font-weight-bold">Filter options</span>
+				<!-- <input type="text" name=""> -->
 				<i class="fa fa-chevron-down myicon"></i>
 			</span>
 		</div>

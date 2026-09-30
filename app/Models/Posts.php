@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\TimeRangeScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Posts extends Model {
     use TimeRangeScope;
@@ -39,4 +40,8 @@ class Posts extends Model {
     ];
 
     public $valid_doctypes = ['text','markdown','code'];
+
+    public function myUser() : BelongsTo {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

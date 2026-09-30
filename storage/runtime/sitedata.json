@@ -1,0 +1,20 @@
+{
+    "date_created": "2026-09-30 16:30:36",
+    "date_updated": "2026-09-07T17:33:29.000000Z",
+    "branch_name": "migori",
+    "sitelink": "https:\/\/migorimain.jaymat.com\/",
+    "currency": "KSH",
+    "country_code": "KE",
+    "initials": "MGI",
+    "location": "Migori, Kenya",
+    "manager": "??",
+    "task_prefix": "JML",
+    "developer_details": {
+        "email": "corygshava777+jaymat_dev_migori@gmail.com",
+        "name": "Cory"
+    },
+    "owner_details": {
+        "email": "jaymattianlabs@gmail.com",
+        "name": "JayMatt"
+    }
+}

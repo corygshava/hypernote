@@ -1,4 +1,4 @@
-        <nav class="topnav" data-scroller data-scrollstart="0%" data-scrollend="20%" data-classdata="w3-animate-opacity, scrolled">
+		<nav class="topnav" data-scroller data-scrollstart="0%" data-scrollend="20%" data-classdata="w3-animate-opacity, scrolled">
 			<div class="navitems">
 				<div class="logopart">
 					<a href="#" class="nav-logo" aria-label="_hyperworks home">
@@ -13,7 +13,7 @@
 					<li><a href="#tech">Tech Stack</a></li>
 				</div>
 				<div class="cta-guy w3-hide_ flowline gap-sm centerline">
-					<div data-visibledata="0,1,1"><a href="#contact" class="nav-cta"><i class="fas fa-plus"></i> new note</a></div>
+					<div data-visibledata="0,1,1"><a href="#contact" class="nav-cta" data-runme="add_new_note"><i class="fas fa-plus"></i> new note</a></div>
 
 					<div class="dropdown">
 						<div class="user-chip flowline gap-tn" data-role="user-card" data-toggle="dropdown">
@@ -36,7 +36,7 @@
 								<a href="#" class="dropdown-item w3-hide" data-runme="load_page" data-link="defined:view_logs" data-label="defined:view_logs">
 									<i class="fa fa-shield-alt"></i> Audit Logs
 								</a>
-								<a href="#" class="dropdown-item">
+								<a href="#" class="dropdown-item" data-submitme="#logoutform">
 									<i class="fa fa-user-slash"></i> logout
 								</a>
 							</div>

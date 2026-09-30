@@ -28,6 +28,10 @@ Route::prefix('/data')->group(function () {
     Route::get('/my_notes',[PostController::class, 'get_my_notes']);
 });
 
+Route::prefix('/op')->group(function (){
+    Route::post('/add_edit_note',[PostController::class, 'add_edit_note']);
+});
+
 Route::prefix('/data/stats')->group(function () {
     Route::get('/my_notes',[PostController::class, 'get_my_notes_stats']);
 });
