@@ -19,6 +19,7 @@ class Posts extends Model {
         'comments_count',
         'is_shadowed',
         'tags',
+        'doctype',
     ];
 
     protected $casts = [

@@ -15,7 +15,7 @@ return new class extends Migration{
 			$table->integer('comments_count')->default(0);
 			$table->integer('is_shadowed')->default(false);
 			$table->json('tags')->default(false);
-			$table->enum('doctype',['text','markdown','code'])->default(false);
+			$table->enum('doctype',['text','markdown','code'])->default('text');
 		});
 	}
 
