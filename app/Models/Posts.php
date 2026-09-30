@@ -18,10 +18,12 @@ class Posts extends Model {
         'dislikes_count',
         'comments_count',
         'is_shadowed',
+        'tags',
     ];
 
     protected $casts = [
         'metadata' => 'array',
+        'tags' => 'array',
         'is_shadowed' => 'boolean',
     ];
 
