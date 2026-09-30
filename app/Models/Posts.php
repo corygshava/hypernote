@@ -35,5 +35,8 @@ class Posts extends Model {
         '3' => 'unlisted',
         '4' => 'temporary',
         '5' => 'shadowed',
+        '6' => 'anonymous',
     ];
+
+    public $valid_doctypes = ['text','markdown','code'];
 }
