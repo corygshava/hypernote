@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('privacy_state')->default(0);
             $table->string('title')->default('');
-            $table->string('body')->default('');
+            $table->longText('body')->default('');
             $table->json('metadata')->default('{}');
 
             $table->timestamps();
