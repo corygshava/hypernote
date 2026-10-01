@@ -202,6 +202,8 @@
 				}
 
 				setupEventListeners = () => {
+					let config = this.config;
+
 					const searchstuff = (e,immediate = false) => {
 						clearTimeout(this.debounceTimer);
 						let tosearch = e.target.value;
@@ -229,7 +231,7 @@
 
 					// Search input
 					if (config.enableSearch) {
-						const searchInput = document.gquerySelector(config.ui_searchinput);
+						const searchInput = document.querySelector(config.ui_searchinput);
 
 						if (searchInput != undefined) {
 							if(!this.uis.hasOwnProperty('search_ui')){
@@ -373,11 +375,11 @@
 
 					let config = this.config;
 					const p = {
-						page: this.currentPage,
+						page: this.currentPage || 1,
 						per_page: config.perPage,
-						search: this.searchQuery,
-						sort_by: this.sortColumn,
-						sort_direction: this.sortDirection,
+						search: this.searchQuery || '',
+						sort_by: this.sortColumn || '',
+						sort_direction: this.sortDirection || 'asc',
 						...this.currentFilters,
 						...config.additionalParams,
 					};
@@ -424,11 +426,11 @@
 
 					let config = this.config;
 					const p = {
-						page: this.currentPage,
+						page: this.currentPage || 1,
 						per_page: config.perPage,
-						search: this.searchQuery,
-						sort_by: this.sortColumn,
-						sort_direction: this.sortDirection,
+						search: this.searchQuery || '',
+						sort_by: this.sortColumn || '',
+						sort_direction: this.sortDirection || 'asc',
 						...this.currentFilters,
 						...config.additionalParams,
 					};
@@ -456,6 +458,19 @@
 					if(dta.data.length == 0){
 						this.uis['display_ui'].innerHTML = this.gen_empty_ui();
 					}
+
+					let outht = '';
+
+					dta.data.forEach(d => {
+						let t_ht = '';
+						Object.keys(d).forEach(k => {
+							t_ht += mekDiv(`<b>${k}:</b> <span>${d[k]}</span>`);
+						})
+
+						outht += mekDiv(t_ht,'mb-2 border spacy-tn themeround');
+					});
+
+					this.uis.display_ui.innerHTML = outht;
 				}
 				renderStats = (stats) => {
 					let config = this.config;

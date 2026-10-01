@@ -1,4 +1,4 @@
-		<nav class="topnav" data-scroller data-scrollstart="0%" data-scrollend="20%" data-classdata="w3-animate-opacity, scrolled">
+		<nav class="topnav" data-scroller data-scrollstart="0%" data-scrollend="10%" data-classdata="w3-animate-opacity, scrolled">
 			<div class="navitems">
 				<div class="logopart">
 					<a href="#" class="nav-logo" aria-label="_hyperworks home">

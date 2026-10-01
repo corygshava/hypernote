@@ -102,7 +102,7 @@ body[data-mode="dark"] {
 	--light-gray: #444;
 	--lighter-gray: #333;
 	--clr-modeglass: #1214259e;
-	--clr-panelbg2: #181511;
+	--clr-panelbg2: #14181e;
 }
 body.t1{
 	display: flex;
@@ -242,8 +242,8 @@ a:hover{
 		}
 
 		.mybtn.trans {
-		    background: none;
-		    color: var(--clr-text);
+			background: none;
+			color: var(--clr-text);
 		}
 		.mybtn.trans:hover {
 			color: var(--themecolor);
@@ -301,8 +301,8 @@ a:hover{
 		}
 
 		.mybtn2.trans {
-		    background: none;
-		    color: var(--clr-text);
+			background: none;
+			color: var(--clr-text);
 		}
 		.mybtn2.trans:hover {
 			color: var(--themecolor);
