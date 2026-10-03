@@ -894,6 +894,7 @@ a:hover{
 		.like_box.liked .liketxt{display: block;}
 
 /* BS4 fixes */
+	hr{border-top: 1px solid var(--clr-border);}
 	.border{border: 1px solid var(--clr-border) !important;}
 	.modal-header{border: none;}
 	.border-bottom,.modal-content{border-bottom: 1px solid var(--clr-border) !important;}

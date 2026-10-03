@@ -1,9 +1,13 @@
 <?php
-	// require_once __DIR__.'/codes_datadisplay.php';
+    /*
+	require_once __DIR__.'/codes_datadisplay.php';
+	require_once __DIR__.'/piece_shownote.php';
+    // */
 ?>
 
 {{-- <!-- --}}
 @include('pieces.codes_datadisplay')
+@include('pieces.piece_shownote')
 {{-- --> --}}
 
 <style>
@@ -13,57 +17,109 @@
 		flex-wrap: wrap;
 		gap: 16px;
 	}
-	.social-card {
-		background: var(--clr-panelbg);
-		border: 1px solid transparent;
-		border-radius: var(--roundness);
-		padding: 16px;
-		backdrop-filter: blur(10px);
-		position: relative;
-		z-index: 0;
-		flex: 1 0 300px;
-		/*max-width: 300px;*/
-	}
-	.social-card:hover {
-		border: 1px solid var(--clr-border);
-		background: var(--clr-panelbg2);
-	}
 
-	.social-card .card-actions {
-		display: flex;
-		gap: 0.5rem;
-		padding: 8px;
-	}
+	/* note card styles */
+		.social-card {
+			background: var(--clr-panelbg);
+			border: 1px solid transparent;
+			border-radius: var(--roundness);
+			padding: 16px;
+			backdrop-filter: blur(10px);
+			position: relative;
+			z-index: 0;
+			flex: 1 0 300px;
+			/*max-width: 300px;*/
+		}
+		.social-card:hover {
+			border: 1px solid var(--clr-border);
+			background: var(--clr-panelbg2);
+		}
 
-	.social-card .note-category {
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--themecolor);
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-		display: inline-block;
-	}
+		.social-card .card-actions {
+			display: flex;
+			gap: 0.5rem;
+			padding: 8px;
+		}
 
-	.social-card .note-heading {
-		font-size: 1.25rem;
-		font-weight: 600;
-		margin-bottom: 0.75rem;
-		line-height: 1.4;
-	}
+		.social-card .note-category {
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: var(--themecolor);
+			font-weight: 600;
+			margin-bottom: 0.5rem;
+			display: inline-block;
+		}
 
-	.social-card .note-body {
+		.social-card .note-heading {
+			font-size: 1.25rem;
+			font-weight: 600;
+			margin-bottom: 0.75rem;
+			line-height: 1.4;
+		}
+
+		.social-card .note-body {
 		/*color: var(--text-secondary);*/
 		font-size: 0.9375rem;
 		line-height: 1.6;
 		margin-bottom: 1.25rem;
 	}
 
-	@media(min-width: 600px){
-		.social-card{
-			max-width: 400px;
+		@media(min-width: 600px){
+			/* for tabs and PCs */
+			.social-card{
+				max-width: 400px;
+			}
 		}
-	}
+
+		.social-card .my-card-header{
+			border-color: var(--clr-modeglass);
+		}
+
+		.social-card .privacy_state_btn{
+			padding: 4px 8px;
+			border-radius: var(--roundness-sm);
+			background: var(--bg,var(--theme-glass));
+			color: var(--fg, var(--themecolor));
+			font-size: 0.7rem;
+		}
+		.privacy_state_btn.t_1 {
+			/* public notes tag */
+		    --bg: #7a00ff;
+		    --fg: #fff;
+		}
+		.privacy_state_btn.t_2 {
+			/* unlisted notes tag */
+		    --bg: #ff009354;
+		    --fg: #fff;
+		}
+		.privacy_state_btn.t_3 {
+			/* unlisted notes tag */
+		    --bg: slategrey;
+		    --fg: #fff;
+		}
+		.privacy_state_btn.t_6 {
+			/* unlisted notes tag */
+		    --bg: slategrey;
+		    --fg: #fff;
+		}
+
+	/* reusables */
+		.custom_drop.sm {
+		    width: auto !important;
+		    font-size: 0.8rem;
+		    min-width: 100px !important;
+		    overflow: hidden;
+		}
+		.custom_drop.sm .dropdown-item{
+		    font-weight: 700 !important;
+		    color: var(--clr-text);
+		    cursor: pointer;
+		}
+		.custom_drop.sm .dropdown-item:hover{
+			background: var(--clr-text);
+			color: var(--clr-alttext);
+		}
 </style>
 
 <style>
@@ -344,21 +400,29 @@
 
 				b_text = d.body.length > 100 ? d.body.substr(0,100) + '...' : d.body;
 
+				let mystate = privacy_state_atlas[d.privacy_state];
+
 				t_ht = `
-					<div class="social-card slide-up" style="${mekstagger(100,n)}">
+					<div class="social-card slide-up" style="${mekstagger(100,n)}" onclick="note_click(event,this)" data-myid="${n}">
 						<div class="card-actions w3-display-topright w3-hide_">
-							<button class="mybtn sm outline" onclick="edit_note(${n})">edit</button>
-							<div class="dropdown w3-hide">
-								<div class="user-chip flowline gap-tn" data-role="user-card" data-toggle="dropdown">
-									<i class="far fa-elipsis-v"></i>
+							<button class="mybtn sm outline w3-hide" onclick="edit_note(${n})">follow</button>
+							<div class="dropdown w3-hide_">
+								<div class="mybtn sm outline flowline gap-tn centerline" data-role="user-card" data-toggle="dropdown">
+									<i class="fa fa-elipsis-v fa-chevron-down"></i>
 								</div>
-								<div class="dropdown-menu dropdown-menu-right border panelbg2 modetxt themeround slide-down nopadding custom mt-3" style="min-width: 180px;z-index:2">
-									<div class="options text-nm">
-										<a class="dropdown-item">View Profile</a>
-										<a class="dropdown-item" onclick="toggleFollow(this)">Follow</a>
+								<div class="dropdown-menu dropdown-menu-right border panelbg2 modetxt themeround slide-down nopadding custom_drop sm mt-3" style="min-width: 180px;z-index:2">
+									<div class="options">
+										<a class="dropdown-item" onclick="edit_note(${n})">Edit note</a>
+										<a class="dropdown-item" onclick="set_privacy(${n})">Change privacy</a>
+										<a class="dropdown-item w3-hide" data-subrole="view_profile">View Profile</a>
+										<a class="dropdown-item w3-hide" data-subrole="follow_user">Follow</a>
 									</div>
 								</div>
 							</div>
+						</div>
+
+						<div class="my-card-header border-bottom pb-2">
+							<b class="privacy_state_btn t_${d.privacy_state}">${mekIcon(iconAtlas[mystate])} ${mystate}</b>
 						</div>
 
 						<div class="note-content-area">
@@ -377,5 +441,17 @@
 
 		let t = classes.get('DataDis');
 		ui_load_instance = new t(d_config);
+	}
+
+	window['note_click'] = (e,el) => {
+		console.log(e);
+		window['last_note_click_event'] = e;
+
+		if(last_note_click_event.target.closest('.card-actions') != undefined){
+			return;
+		}
+
+		alert_info('showing note');
+		openNoteModal(last_fetched_notes[Number(el.dataset.myid)]);
 	}
 </script>

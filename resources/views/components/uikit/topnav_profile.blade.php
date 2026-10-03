@@ -1,3 +1,6 @@
+<!--
+@auth
+-->
 		<nav class="topnav" data-scroller data-scrollstart="0%" data-scrollend="10%" data-classdata="w3-animate-opacity, scrolled">
 			<div class="navitems">
 				<div class="logopart">
@@ -17,9 +20,9 @@
 
 					<div class="dropdown">
 						<div class="user-chip flowline gap-tn" data-role="user-card" data-toggle="dropdown">
-							<img src="https://i.pravatar.cc/80?img=04" alt="" data-role="u-avatar" loading="lazy" />
+							<img src="https://i.pravatar.cc/80?img={{ auth()->user()->id }}" alt="" data-role="u-avatar" loading="lazy" />
 							<div data-visibledata="0,1,1">
-								<div data-role="u-name">Marc Durand</div>
+								<div data-role="u-name">{{ auth()->user()->name }}</div>
 								<!-- <div data-role="u-role">Operations Lead</div> -->
 							</div>
 
@@ -48,3 +51,6 @@
 				</div>
 			</div>
 		</nav>
+<!--
+@endauth
+-->

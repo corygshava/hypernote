@@ -1,4 +1,17 @@
 <script>
+	// universal data
+	privacy_state_atlas = [
+		'draft',
+		'public',
+		'private',
+		'unlisted',
+		'temporary',
+		'shadowed',
+		'anonymous',
+	];
+</script>
+
+<script>
 	app_prefix = "hypernote_app_";
 	pref_prefix = app_prefix;
 	enableCache = true;
@@ -38,6 +51,12 @@
 		my_notes: 'fas fa-pen-fancy',
 		my_feed: 'fas fa-heart',
 		my_following: 'fas fa-users',
+
+		// post types
+		public: 'fas fa-globe',
+		private: 'fa fa-lock',
+		unlisted: 'fas fa-unlink',
+		anonymous: 'fa fa-user-secret',
 	};
 	timeranges = [
 		"today",

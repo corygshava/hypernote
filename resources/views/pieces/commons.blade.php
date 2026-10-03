@@ -36,6 +36,73 @@
 	.av.xs.av-anon,.av.sm.av-anon{font-size:.85rem}
 </style>
 
+<!-- new for view note -->
+<style>
+	#noteContentArea{
+		min-height: 200px;
+	}
+</style>
+<style>
+	/* Custom styling for the note content */
+	.note-text-content, .note-code-content {
+		white-space: pre-wrap; /* Crucial for preserving \n and \t */
+		word-wrap: break-word;
+		font-family: inherit;
+		line-height: 1.6;
+		color: #333;
+	}
+
+	.note-code-wrapper {
+		position: relative;
+		background-color: #f8f9fa;
+		border: 1px solid #e9ecef;
+		border-radius: 0.25rem;
+		padding: 1rem;
+	}
+
+	.note-code-content {
+		font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+		font-size: 0.9rem;
+		margin: 0;
+		background: transparent;
+		color: #212529;
+	}
+
+	.copy-btn {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		z-index: 10;
+		background: rgba(255, 255, 255, 0.9);
+		border: 1px solid #ced4da;
+		transition: all 0.2s;
+	}
+
+	.copy-btn:hover {
+		background: #fff;
+	}
+
+	/* Markdown specific overrides to make it look nice inside the modal */
+	.note-markdown-content h1, .note-markdown-content h2, .note-markdown-content h3 {
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+	}
+	.note-markdown-content pre {
+		background: #f8f9fa;
+		padding: 1rem;
+		border-radius: 0.25rem;
+		border: 1px solid #e9ecef;
+	}
+	.note-markdown-content code {
+		color: #e83e8c;
+		word-break: break-word;
+	}
+	.note-markdown-content pre code {
+		color: #212529;
+	}
+</style>
+
+
 	<div>
 		<button class="mybtn primary w3-hide" id="password_confo_trig" data-toggle="modal" data-target="#password_confo">
 			<i class="fas fa-plus"></i>
@@ -68,6 +135,7 @@
 			</div>
 		</div>
 
+		<!-- add note setup -->
 		<button class="mybtn primary w3-hide" id="new_note_trig" data-toggle="modal" data-target="#newNote">
 			<i class="fas fa-plus"></i>
 			new note
@@ -164,6 +232,47 @@
 						<!-- <span class="text-muted small mr-auto"><span id="nCount">5000</span> characters left</span> -->
 						<button class="mybtn trans" data-dismiss="modal">Cancel</button>
 						<button class="mybtn primary" data-submitme="#add_edit_note_form">Post note <i class="fa fa-paper-plane"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- view note setup -->
+		<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalTitle" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+				<div class="modal-content panelbg themeround borderless">
+					<div class="modal-header border-bottom-0 pb-0">
+						<h5 class="modal-title font-weight-bold" id="noteModalTitle"></h5>
+						<button type="button" class="close modetxt" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body pt-0">
+						<!-- Meta Information -->
+						<div class="note-meta d-flex flex-wrap align-items-center text-muted small mb-3">
+							<span class="mr-3"><i class="fas fa-heart text-danger mr-1"></i> <span id="noteLikes"></span></span>
+							<span class="mr-3"><i class="fas fa-thumbs-down mr-1"></i> <span id="noteDislikes"></span></span>
+							<span class="mr-3"><i class="far fa-comment mr-1"></i> <span id="noteComments"></span></span>
+						</div>
+
+						<!-- Tags -->
+						<div class="note-tags mb-3" id="noteTags"></div>
+
+						<hr class="mt-0">
+
+						<!-- Content Area -->
+						<div id="noteContentArea"></div>
+					</div>
+
+					<div class="modal-footer border-top-0 pt-0 flowline spread">
+						<div>
+							<small class="mr-3"><i class="far fa-calendar-alt mr-1"></i> <span id="noteDate"></span></small>
+							<!-- <small class="mr-3"><i class="far fa-clock mr-1"></i> <span id="noteUpdateDate"></span></small> -->
+						</div>
+						<div>
+							<button type="button" class="mybtn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>

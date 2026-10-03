@@ -2,6 +2,7 @@
 	--w: 800px;
 }
 
+li{list-style-type: number;}
 .ui_cage{
 	max-width: var(--w);
 	margin: 0 auto;
@@ -40,6 +41,7 @@
 		position: fixed;
 		bottom: 20px;
 		width: 100%;
+		pointer-events: none;
 	}
 	.pageloader_waiter>div{
 		background-color: var(--clr-alttext);

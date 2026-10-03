@@ -38,6 +38,7 @@
 	<script src="./cbl/_assets/js/SuperScript.js"></script>
 	<script src="./cbl/_assets/js/toappend.js"></script>
 	<script src="./cbl/_assets/_vendor/BS4/js/bootstrap.bundle.min.js"></script>
+	<script src="./cbl/_assets/_vendor/misc/marked.min.js"></script>
 
 	<script src="./cbl/_assets/js/anims.js"></script>
 	<script src="./cbl/_assets/js/coryG_UIOps.js"></script>
