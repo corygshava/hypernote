@@ -48,9 +48,6 @@ class PostController extends Controller {
 
 			// filters
 			$status = $req->input('status',null);
-			$with_results = $req->input('with_results',null);
-			$sample_typ = $req->input('sample_type',null);
-			$pay_status = $req->input('payment_status',null);
 			$t_range = $req->input('timerange',null);
 
 			$sortBy = $sortBy == null ? 'created_at' : $sortBy;
@@ -61,7 +58,6 @@ class PostController extends Controller {
 				"sortBy" => $sortBy,
 				"sortDirection" => $sortDirection,
 				"status" => $status,
-				"with_results" => $with_results,
 			]);
 
 			// clean up sortBy to prevent issues
@@ -76,7 +72,7 @@ class PostController extends Controller {
 			// return response()->json($res);
 
 			$records = Posts::query()
-                ->where('id','<>',null)
+                ->where('user_id',$user->id)
 			;
 
 			if($search){
@@ -169,8 +165,8 @@ class PostController extends Controller {
 		// ops begin
 		if($this->ili()){
 			$res['success'] = true;
-
-			$_msg("trying to get expenses");
+            $user = self::cur_user();
+			$_msg("trying to get your stats");
 
 			$perPage = $req->input('per_page', 10);
 			$search = $req->input('search',null);
@@ -192,7 +188,7 @@ class PostController extends Controller {
 			];
 
 			$records = Posts::query()
-                ->where('id','<>',null)
+                ->where('user_id',$user->id)
 			;
 
 			if($search){
@@ -219,7 +215,7 @@ class PostController extends Controller {
 
 			// the prev was left in case i feel like attaching the filters to stats too
 			// stat of stats processing, get it :)
-			$all_posts = Posts::all();
+			$all_posts = (clone $posts);
 
 			// total expenses
 			$statval = (clone $all_posts)->count();
