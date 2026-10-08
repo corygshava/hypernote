@@ -66,6 +66,7 @@
 					ui_stats: '#loadingOverlay',		// UI for showing stats
 					paginationId: '#pagination',		// ID of pagination container
 					ui_searchinput: '#quickSearch',		// ID of search input
+					ui_overview: '#data_overview',
 					emptyStateId: '#emptyState',		// ID of empty state container
 
 					// Table configuration
@@ -74,6 +75,7 @@
 					enableSearch: true,					// Enable search functionality
 					enableSort: false,					// Enable column sorting
 					enableFilters: false,				// Enable filters
+					enableOverview: true,
 					ignoreDefaultFilters: false,
 					filters: [],						// Array of filter definitions
 
@@ -111,6 +113,7 @@
 					this.sortDirection = config.sortDirection;
 					this.name = config.name == null ? mekRandomString(3) : '--';
 					this.serial = mekRandomString(4);
+					this.born_at = new Date();
 
 					// some config pre processing
 						let default_filters = [
@@ -142,6 +145,10 @@
 
 					this.config = config;
 					this.setupEventListeners();
+
+					if(config.enableOverview){
+						this.generateOverview();
+					}
 
 					if(config.enableSort === true){
 						this.say('i am allowed to sort things, yaay');
@@ -231,25 +238,74 @@
 
 					// Search input
 					if (config.enableSearch) {
-						const searchInput = document.querySelector(config.ui_searchinput);
+						setTimeout(() => {
+							alert_info('setting up search');
+							const searchInput = document.querySelector(config.ui_searchinput);
 
-						if (searchInput != undefined) {
-							if(!this.uis.hasOwnProperty('search_ui')){
-								this.uis['search_ui'] = searchInput;
-							}
-							searchInput.addEventListener('input', function(e) {
-								searchstuff(e);
-							});
-
-							searchInput.addEventListener('keydown', function(e) {
-								if(e.key.toLowerCase() == 'enter'){
-									searchstuff(e,true);
+							if (searchInput != undefined) {
+								if(!this.uis.hasOwnProperty('search_ui')){
+									this.uis['search_ui'] = searchInput;
 								}
-							});
-						}
+								searchInput.addEventListener('input', function(e) {
+									searchstuff(e);
+								});
+
+								searchInput.addEventListener('keydown', function(e) {
+									if(e.key.toLowerCase() == 'enter'){
+										searchstuff(e,true);
+									}
+								});
+							}
+						}, 400);
 					}
 				}
 
+				generateOverview = () => {
+					let gensearch = false;
+					let config = this.config;
+					let _overui = document.querySelector(`${config.ui_overview}`);
+
+					if(_overui == undefined){
+						this.say(`overview UI not found`);
+						return;
+					}
+
+					this.uis['overview_ui'] = _overui;
+
+					if(config.enableSearch){
+						// generate search in overview if its not defined yet
+						let _search = document.querySelector(`${config.ui_searchinput}`);
+						gensearch = _search == undefined;
+					}
+
+					let outht = mekDiv(mekBold('the Notes','h4'),'spacy-sm');
+					let refreshbtn = mekButton({caption: " ",btype: 'trans',icon: "fas fa-sync-alt",_props: `onclick="refreshData_2('${this.serial}')"`});
+					let m_class = 'flowline overflow gap-sm spread';
+
+					if(gensearch){
+						let mid = `autogen_quickSearch_${mekRandomString(4)}`;
+						let newht = mekDiv(`
+							<div class="search-box">
+								<input type="text" placeholder="search ${config.entity_name} ..." id="${mid}">
+								<button><i class="fas fa-search"></i></button>
+							</div>
+							${mekDiv(refreshbtn)}
+						`,'flowline gap-tn');
+
+						this.config.ui_searchinput = `#${mid}`;
+						outht = mekDiv(
+							outht + newht,
+							m_class
+						);
+					} else {
+						outht = mekDiv(
+							outht + mekDiv(refreshbtn),
+							m_class
+						)
+					}
+
+					_overui.innerHTML = outht;
+				}
 				generateSorters = () => {
 					// generating data sorters
 					let config = this.config;
@@ -648,7 +704,7 @@
 		// LaravelDataTable.applyFilter(w,wot);
 		item.applyFilter(w,wot);
 	}
-	function refreshData_2(){
+	function refreshData_2(serial){
 		let item = getInstance(serial);
 		if(item == undefined){return;}
 

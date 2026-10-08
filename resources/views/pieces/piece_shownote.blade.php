@@ -1,6 +1,7 @@
 <script>
     // Your data object
     window['noteData'] = {};
+    window['last_note_text'] = 'nothing yet';
 
     // Helper to escape HTML to prevent XSS in text/code modes
     function escapeHtml(text) {
@@ -52,14 +53,17 @@
             wrapper.className = 'note-code-wrapper';
 
             const copyBtn = document.createElement('button');
-            copyBtn.className = 'btn btn-sm btn-outline-secondary copy-btn';
+            copyBtn.className = 'mybtn sm outline w3-display-topright';
+            copyBtn.style.cssText = "top: 12px;right: 12px;";
             copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-            copyBtn.onclick = () => copyToClipboard(data.body, copyBtn);
+            copyBtn.onclick = () => {
+                copy_last_note(data.body, copyBtn);
+            };
 
             const pre = document.createElement('pre');
             const code = document.createElement('code');
             code.className = 'note-code-content';
-            code.textContent = data.body; // textContent automatically escapes HTML and preserves whitespace
+            code.textContent = data.body.replaceAll('\t','&nbsp&nbsp'); // textContent automatically escapes HTML and preserves whitespace
 
             pre.appendChild(code);
             wrapper.appendChild(copyBtn);
@@ -74,39 +78,46 @@
             contentArea.appendChild(textDiv);
         }
 
+        last_note_text = data.body;
+
         // 4. Show Modal
         $('#noteModal').modal('show');
     }
 
     // Robust Copy to Clipboard function
-    function copyToClipboard(text, btn) {
+    function copy_last_note(text, btn) {
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(text).then(() => showCopySuccess(btn));
         } else {
             // Fallback for older browsers or non-secure contexts (HTTP)
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.select();
             try {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+
                 document.execCommand('copy');
                 showCopySuccess(btn);
             } catch (err) {
                 console.error('Failed to copy text', err);
             }
+
             document.body.removeChild(textArea);
         }
     }
 
     function showCopySuccess(btn) {
         const originalHTML = btn.innerHTML;
+        btn.classList.add('text-success')
         btn.innerHTML = '<i class="fas fa-check text-success"></i> Copied!';
         btn.classList.add('border-success');
+
         setTimeout(() => {
             btn.innerHTML = originalHTML;
             btn.classList.remove('border-success');
+            btn.classList.remove('text-success');
         }, 2000);
     }
 </script>

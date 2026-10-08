@@ -293,6 +293,7 @@ li{list-style-type: number;}
 		text-align: center;
 		padding: 60px 20px;
 		display: none;
+		width: 100%;
 	}
 	.empty-state.show {
 		display: block;

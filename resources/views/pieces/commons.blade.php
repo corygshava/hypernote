@@ -49,23 +49,22 @@
 		word-wrap: break-word;
 		font-family: inherit;
 		line-height: 1.6;
-		color: #333;
+		color: var(--clr-text);
 	}
 
 	.note-code-wrapper {
-		position: relative;
-		background-color: #f8f9fa;
-		border: 1px solid #e9ecef;
-		border-radius: 0.25rem;
-		padding: 1rem;
+	    position: relative;
+	    background-color: var(--clr-panelbg2);
+	    border: 1px solid var(--clr-border);
+	    border-radius: 0.25rem;
+	    padding: 1rem;
 	}
-
-	.note-code-content {
+	code{
 		font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 		font-size: 0.9rem;
 		margin: 0;
 		background: transparent;
-		color: #212529;
+		color: var(--codecolor, #ff7b72) !important;
 	}
 
 	.copy-btn {
@@ -77,7 +76,7 @@
 		border: 1px solid #ced4da;
 		transition: all 0.2s;
 	}
-
+	
 	.copy-btn:hover {
 		background: #fff;
 	}
@@ -88,10 +87,10 @@
 		margin-bottom: 0.5rem;
 	}
 	.note-markdown-content pre {
-		background: #f8f9fa;
+		background: var(--clr-panelbg2);
 		padding: 1rem;
 		border-radius: 0.25rem;
-		border: 1px solid #e9ecef;
+		border: 1px solid var(--clr-border);
 	}
 	.note-markdown-content code {
 		color: #e83e8c;
@@ -162,7 +161,7 @@
 							<div>
 								<div class="inputholder" data-noprops>
 									<label class="form-label" for="post_body">input </label>
-									<textarea class="form-control-custom no_additional_classes"  name="post_body" id="post_body" placeholder="whats on your mind, Marc?" rows='7' maxlength="1000" required></textarea>
+									<textarea class="form-control-custom no_additional_classes"  name="post_body" id="post_body" placeholder="whats on your mind, Marc?" rows='7' maxlength="5000" required></textarea>
 								</div>
 							</div>
 							<div>
@@ -247,7 +246,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-
+					
 					<div class="modal-body pt-0">
 						<!-- Meta Information -->
 						<div class="note-meta d-flex flex-wrap align-items-center text-muted small mb-3">
@@ -255,7 +254,7 @@
 							<span class="mr-3"><i class="fas fa-thumbs-down mr-1"></i> <span id="noteDislikes"></span></span>
 							<span class="mr-3"><i class="far fa-comment mr-1"></i> <span id="noteComments"></span></span>
 						</div>
-
+						
 						<!-- Tags -->
 						<div class="note-tags mb-3" id="noteTags"></div>
 
@@ -264,14 +263,14 @@
 						<!-- Content Area -->
 						<div id="noteContentArea"></div>
 					</div>
-
-					<div class="modal-footer border-top-0 pt-0 flowline spread">
+					
+					<div class="modal-footer pt-0 flowline spread spacy-sm">
 						<div>
 							<small class="mr-3"><i class="far fa-calendar-alt mr-1"></i> <span id="noteDate"></span></small>
 							<!-- <small class="mr-3"><i class="far fa-clock mr-1"></i> <span id="noteUpdateDate"></span></small> -->
 						</div>
 						<div>
-							<button type="button" class="mybtn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="mybtn outline" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>

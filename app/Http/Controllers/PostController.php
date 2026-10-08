@@ -42,12 +42,15 @@ class PostController extends Controller {
             $user = $this->cur_user();
 
 			$perPage = $req->input('per_page', 10);
-			$search = $req->input('search');
+			$search = $req->input('search',null);
 			$sortBy = $req->input('sort_by', 'created_at');
 			$sortDirection = $req->input('sort_direction', 'desc');
 
 			// filters
 			$status = $req->input('status',null);
+            if($status == null){
+                $status = $req->input('privacy_state',null);
+            }
 			$t_range = $req->input('timerange',null);
 
 			$sortBy = $sortBy == null ? 'created_at' : $sortBy;
@@ -77,9 +80,10 @@ class PostController extends Controller {
 
 			if($search){
 				$records = $records
-					->orWhere('title', 'like', "%{$search}%")
+					->where('title', 'like', "%{$search}%")
 					->orWhere('body', 'like', "%{$search}%")
 				;
+
 				$_rlg("added search filter");
 			}
 
@@ -218,7 +222,8 @@ class PostController extends Controller {
 			$all_posts = (clone $posts);
 
 			// total expenses
-			$statval = (clone $all_posts)->count();
+			$statval = (clone $records)->where('user_id',$user->id)->count();
+            $allposts = $statval;
 			$_statme(
 				[
 					"value" => $statval,
@@ -229,30 +234,32 @@ class PostController extends Controller {
 			);
 
 			$statval = (clone $all_posts)->where('privacy_state',1)->count();
+            $p_count = $statval;
 			$_statme(
 				[
 					"value" => $statval,
 					"label" => "Public Notes",
-					"type" => $statval > 0 ? "success" : "danger",
+					"type" => $statval > 0 ? "success" : "primary",
 					"icon" => "defined:notes"
 				]
 			);
 			$statval = (clone $all_posts)->where('privacy_state',2)->count();
+            $p_count += $statval;
 			$_statme(
 				[
 					"value" => $statval,
 					"label" => "Private Notes",
-					"type" => $statval > 0 ? "success" : "danger",
+					"type" => $statval > 0 ? "success" : "primary",
 					"icon" => "defined:notes"
 				]
 			);
-			$statval = (clone $all_posts)->where('privacy_state',3)->count();
+			$statval = $allposts - $p_count;
 			$_statme(
 				[
 					"value" => $statval,
-					"label" => "Unlisted Notes",
-					"type" => $statval > 0 ? "success" : "danger",
-					"icon" => "defined:notes"
+					"label" => "stealth Notes",
+					"type" => $statval > 0 ? "success" : "primary",
+					"icon" => "defined:anonymous"
 				]
 			);
 

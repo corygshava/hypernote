@@ -59,11 +59,11 @@
 		}
 
 		.social-card .note-body {
-		/*color: var(--text-secondary);*/
-		font-size: 0.9375rem;
-		line-height: 1.6;
-		margin-bottom: 1.25rem;
-	}
+			/*color: var(--text-secondary);*/
+			font-size: 0.9375rem;
+			line-height: 1.6;
+			margin-bottom: 1.25rem;
+		}
 
 		@media(min-width: 600px){
 			/* for tabs and PCs */
@@ -104,14 +104,47 @@
 		    --fg: #fff;
 		}
 
+		.social-card .my-card-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-top: 1rem;
+			border-top: 1px solid var(--clr-border);
+		}
+		.social-card .timestamp {
+			font-size: 0.75rem;
+			color: var(--clr-text-muted);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+		.social-card .interaction-stats {
+			display: flex;
+			gap: 1rem;
+			font-size: 0.875rem;
+			color: var(--clr-text-muted);
+		}
+
+		.social-card .stat-item {
+			display: flex;
+			align-items: center;
+			gap: 0.375rem;
+			cursor: pointer;
+			transition: var(--transition);
+		}
+		.stat-item:hover { color: var(--themecolor); }
+		.stat-item.liked { color: var(--seccolor); }
+
 	/* reusables */
 		.custom_drop.sm {
 		    width: auto !important;
 		    font-size: 0.8rem;
 		    min-width: 100px !important;
 		    overflow: hidden;
+		    background: var(--clr-panelbg2);
 		}
 		.custom_drop.sm .dropdown-item{
+			padding: 8px 16px;
 		    font-weight: 700 !important;
 		    color: var(--clr-text);
 		    cursor: pointer;
@@ -119,6 +152,49 @@
 		.custom_drop.sm .dropdown-item:hover{
 			background: var(--clr-text);
 			color: var(--clr-alttext);
+		}
+
+	/* search box */
+		.search-box {
+			position: relative;
+			width: 300px;
+		}
+		.search-box input {
+			width: 100%;
+			padding: 8px 36px 8px 20px;
+			border: 2px solid var(--clr-border);
+			border-radius: 25px;
+			transition: all 0.3s;
+			font-size: 14px;
+			background: var(--clr-panelbg);
+			color: var(--clr-text);
+		}
+		.search-box input:focus {
+			outline: none;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 3px rgba(107, 91, 149, 0.1);
+		}
+		.search-box input:focus + button{
+			opacity: 1;
+			translate: 0 -50%;
+			color: var(--themecolor) !important;
+		}
+		.search-box button {
+			position: absolute;
+			right: 7px;
+			top: 50%;
+			translate: -70% -50%;
+			/*background: var(--themecolor);*/
+			background: transparent;
+			border: none;
+			/*color: white;*/
+			width: calc(var(--syz) - 7px);
+			height: calc(var(--syz) - 7px);
+			border-radius: 50%;
+			cursor: pointer;
+			opacity: 0;
+			font-size: 0.7rem;
+			color: var(--clr-text) !important;
 		}
 </style>
 
@@ -196,38 +272,6 @@
 
 
 	/* Card Footer */
-		.card-footer {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding-top: 1rem;
-			border-top: 1px solid rgba(255,255,255,0.05);
-		}
-
-		.timestamp {
-			font-size: 0.75rem;
-			color: var(--text-muted);
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-		}
-
-		.interaction-stats {
-			display: flex;
-			gap: 1rem;
-			font-size: 0.875rem;
-			color: var(--text-muted);
-		}
-
-		.stat-item {
-			display: flex;
-			align-items: center;
-			gap: 0.375rem;
-			cursor: pointer;
-			transition: var(--transition);
-		}
-		.stat-item:hover { color: var(--accent-pink); }
-		.stat-item.liked { color: var(--accent-pink); }
 </style>
 
 <div class="page-header">
@@ -254,11 +298,14 @@
 	</div>
 
 	<div class="collapser spacy-tn themeround border-bottom onshow_border">
-		<div class="spacy-sm m_pointer topper" data-toggle="collapse" data-target='[data-role="sort_options"]'>
-			<span class="text-decoration-none flowline spread centerline" href="#sampleInfo">
+		<div class="spacy-sm m_pointer topper">
+			<span class="text-decoration-none flowline spread centerline" href="#sampleInfo" data-toggle="collapse" data-target='[data-role="sort_options"]'>
 				<span class="text-uppercase font-weight-bold">Filter options</span>
-				<!-- <input type="text" name=""> -->
-				<i class="fa fa-chevron-down myicon"></i>
+				<div class="flowline gap-sm">
+					<div class="flow centroid">
+						<i class="fa fa-chevron-down myicon"></i>
+					</div>
+				</div>
 			</span>
 		</div>
 		<div class="collapse" data-role="sort_options">
@@ -303,10 +350,13 @@
 			ui_sortHead: '#notes_container [data-role="sorter_container"]',
 			ui_filterContainer: '#notes_container [data-role="filters_container"]',
 			ui_stats: '#notes_container [data-role="notes_stats"]',
+			ui_searchinput: 'input[data-role="searchinput"]',
 
 			enableSort: true,
 			enableFilters: true,
 			enableStats: true,
+			enableSearch: true,
+			// enableOverview: true,
 
 			columns: [
 				{
@@ -330,6 +380,14 @@
 				},
 			],
 
+			filters: [
+				{
+					name: 'privacy_state',
+					label: 'privacy status',
+					options: [...privacy_state_atlas].map((p,id) => {return {value: id,label: p};})
+				}
+			],
+
 			itemRenderer: (data) => {render_note(data)},
 		};
 
@@ -348,8 +406,7 @@
 			}
 
 			let outht = '';
-
-			overview_ui.innerHTML = mekDiv(mekBold('the Notes','h4'),'spacy-sm');
+			// overview_ui.innerHTML = mekDiv(mekBold('the Notes','h4'),'spacy-sm');
 
 			f_notes.forEach((d,n) => {
 				let t_ht;
@@ -407,8 +464,8 @@
 						<div class="card-actions w3-display-topright w3-hide_">
 							<button class="mybtn sm outline w3-hide" onclick="edit_note(${n})">follow</button>
 							<div class="dropdown w3-hide_">
-								<div class="mybtn sm outline flowline gap-tn centerline" data-role="user-card" data-toggle="dropdown">
-									<i class="fa fa-elipsis-v fa-chevron-down"></i>
+								<div class="mybtn trans flowline gap-tn centerline" data-role="user-card" data-toggle="dropdown">
+									<i class="fa fa-ellipsis-v"></i>
 								</div>
 								<div class="dropdown-menu dropdown-menu-right border panelbg2 modetxt themeround slide-down nopadding custom_drop sm mt-3" style="min-width: 180px;z-index:2">
 									<div class="options">
@@ -421,7 +478,7 @@
 							</div>
 						</div>
 
-						<div class="my-card-header border-bottom pb-2">
+						<div class="my-card-header border-bottom_ pb-2">
 							<b class="privacy_state_btn t_${d.privacy_state}">${mekIcon(iconAtlas[mystate])} ${mystate}</b>
 						</div>
 
@@ -429,6 +486,23 @@
 							<span class="note-category w3-hide">${d.title}</span>
 							<h3 class="note-heading">${d.title}</h3>
 							<p class="note-body">${b_text}</p>
+						</div>
+
+						<div class="my-card-footer">
+							<div class="timestamp">
+								<i class="far fa-clock"></i> ${formatDate0(d.created_at)}
+							</div>
+							<div class="interaction-stats">
+								<div class="stat-item" onclick="toggleLike(this)">
+									<i class="far fa-heart"></i> <span>${d.likes_count}</span>
+								</div>
+								<div class="stat-item">
+									<i class="far fa-comment"></i> <span>${d.comments_count}</span>
+								</div>
+								<div class="stat-item">
+									<i class="fas fa-share"></i>
+								</div>
+							</div>
 						</div>
 					</div>
 				`;
@@ -448,6 +522,9 @@
 		window['last_note_click_event'] = e;
 
 		if(last_note_click_event.target.closest('.card-actions') != undefined){
+			return;
+		}
+		if(last_note_click_event.target.closest('.interaction-stats') != undefined){
 			return;
 		}
 
