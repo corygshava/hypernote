@@ -223,20 +223,35 @@
 			}
 
 			// update user info displays
+				// vars
+				let u_initials = cur_user.name == undefined ? '--' : cur_user.name.split(" ").map(s => {return s.slice(0,1);}).splice(0,2).join("");
+				let u_img = cur_user.profile_image == undefined ?
+					`https://ui-avatars.com/api/?name=${u_initials.split('').join('+')}&color=FFFFFF&background=${getRandomColor(false,true).toUpperCase().substr(1)}`
+					 : (cur_user.profile_processed ? cur_user.profile_image : `./media/profiles/${cur_user.profile_image}`);
+
+				if(cur_user.profile_image == undefined){
+					cur_user.profile_image = u_img;
+					cur_user.profile_processed = true;
+				}
+
 				let sels = {
 					'[data-role="user_name_display"]' : 	cur_user.name == undefined ? '--' : cur_user.name,
 					'[data-role="u-name"]' : 	cur_user.name == undefined ? '--' : cur_user.name,
-					'[data-role="user_initials_display"]' :	cur_user.name == undefined ? '--' : cur_user.name.split(" ").map(s => {return s.slice(0,1);}).splice(0,2).join(""),
+					'[data-role="user_initials_display"]' :	u_initials,
 					'[data-role="u-name-short"]' : 			cur_user.name == undefined ? '--' : cur_user.name.split(" ")[0],
 					// '[data-role="user_role_display"]' : 	cur_user.role_name == undefined ? '--' : cur_user.role_name,
 					'[data-role="date_display"]' : 	formatDate(new Date()),
+					'[data-role="u-avatar"]' : `${u_img}|src`
 				};
 
 				Object.keys(sels).forEach(k => {
 					let uis = document.querySelectorAll(k);
 
 					uis.forEach(ui => {
-						ui.innerHTML = sels[k];
+						let parts = sels[k].split("|");
+						let prop = parts.length > 1 ? parts[1] : 'innerHTML';
+
+						ui[prop] = parts[0];
 					});
 				})
 

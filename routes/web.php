@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ViewController::class, 'welcome']);
 
 Route::get('/dashboard', [ViewController::class, 'welcome'])
-// ->middleware(['auth', 'verified'])->name('dashboard')
+// ->middleware(['auth', 'verified'])
+->name('dashboard')
 ;
 
 Route::middleware('auth')->group(function () {

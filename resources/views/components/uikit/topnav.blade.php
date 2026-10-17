@@ -24,7 +24,8 @@
 		<div class="dropdown open">
 			<div class="user-profile" id="userOpsDropper" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
-				<img src="_assets/img/demos/demoimg2.jpg" class="w3-hide" loading="lazy" alt="Admin">
+				<!-- <img src="_assets/img/demos/demoimg2.jpg" class="w3-hide" loading="lazy" alt="Admin"> -->
+				<img src="--" class="w3-hide" loading="lazy" alt="Admin">
 				<div class="imgstandin">
 					<b class="fa fa-user-tie"></b>
 				</div>

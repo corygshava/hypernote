@@ -300,6 +300,9 @@
 				window['run_post_logout'] = () => {
 					alert_info('redirecting to login');
 
+					localStorage.removeItem(pref_auth);
+					localStorage.removeItem(pref_authdata);
+
 					setTimeout(() => {
 						location.assign('./login');
 					},2000);

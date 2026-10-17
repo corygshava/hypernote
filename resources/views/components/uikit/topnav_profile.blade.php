@@ -20,7 +20,8 @@
 
 					<div class="dropdown">
 						<div class="user-chip flowline gap-tn" data-role="user-card" data-toggle="dropdown">
-							<img src="https://i.pravatar.cc/80?img=4" alt="" data-role="u-avatar" loading="lazy" />
+							<!-- <img src="https://i.pravatar.cc/80?img=4" alt="" data-role="u-avatar" loading="lazy" /> -->
+							<img src="--" alt="" data-role="u-avatar" loading="lazy" />
 							<div data-visibledata="0,1,1">
 								<div data-role="u-name">--</div>
 								<!-- <div data-role="u-role">Operations Lead</div> -->
