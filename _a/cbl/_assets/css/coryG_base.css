@@ -422,14 +422,14 @@ a:hover{
 			background-image: radial-gradient(farthest-side at 50% 0%, var(--clr-glow) 20%, transparent);
 		}
 
-		.topnav .nav-logo span {
+		.nav-logo span {
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			background-image: var(--clr-accent-grad);
 			background-clip: text;
 			display: block;
 		}
-		.topnav .nav-logo {
+		.nav-logo {
 			font-family: var(--logofont);
 			font-weight: 7777;
 			font-size: 1.27rem;
@@ -438,7 +438,7 @@ a:hover{
 			align-items: center;
 			gap: 0.5rem;
 		}
-		.topnav .nav-logo::before {
+		.nav-logo::before {
 			content: '';
 			height: 4px;
 			width: 12px;

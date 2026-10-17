@@ -592,3 +592,12 @@ async function getPublicIP() {
 		return 'Unknown';
 	}
 }
+
+// added from the 3d adventure project on [17/10/26] around 40 days after those
+function gethexlerp(t) {
+	// returns a hexadecimal in the range 00 - FF
+	t = Math.max(0, Math.min(1, t));
+	const value = Math.round(t * 255);
+
+	return value.toString(16).padStart(2, '0');
+}

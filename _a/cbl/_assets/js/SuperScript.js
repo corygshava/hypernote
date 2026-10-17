@@ -262,8 +262,14 @@ function lerp(min,max,factor) {
 	return (min + (factor * (max - min)));
 }
 
-function getRandomColor(hasopacity) {
-	let res = (!hasopacity) ? `rgb(${getRandom(0,255)},${getRandom(0,255)},${getRandom(0,255)})` : `rgba(${getRandom(0,255)},${getRandom(0,255)},${getRandom(0,255)},${getRandom()})`;
+function getRandomColor(hasopacity = false,ishex = false) {
+	let res = '';
+
+	if(ishex){
+		res = `#${gethexlerp(getRandom(0,1))}${gethexlerp(getRandom(0,1))}${gethexlerp(getRandom(0,1))}${hasopacity ? gethexlerp(getRandom(0,1)) : ''}`;
+	} else {
+		res = (!hasopacity) ? `rgb(${getRandom(0,255)},${getRandom(0,255)},${getRandom(0,255)})` : `rgba(${getRandom(0,255)},${getRandom(0,255)},${getRandom(0,255)},${getRandom()})`;
+	}
 	return res;
 }
 
