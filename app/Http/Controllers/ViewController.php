@@ -9,6 +9,16 @@ class ViewController extends Controller{
         'my_notes' => 'profile.my_notes',
     ];
 
+    function welcome(Request $req) {
+		return view('dashboard');
+
+        if(self::ili()){
+        } else {
+            // return view('auth.login');
+            return redirect('./login');
+        }
+    }
+
     public function show_my_notes(Request $req) {
         if(self::ili()){
             return view('profile.my_notes');

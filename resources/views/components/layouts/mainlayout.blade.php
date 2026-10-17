@@ -47,8 +47,9 @@
 	<script src="./cbl/_assets/js/app.js"></script>
 </head>
 <body>
-	{{ $slot }}
+	@include('pieces.dashcodes')
+	@include('pieces.commons')
 
-    @include('pieces.commons')
+	{{ $slot }}
 </body>
 </html>

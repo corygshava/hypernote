@@ -28,15 +28,15 @@
                 </p>
 			</div>
 
-			<form class="t1" action="./login" method="post">
+			<form class="t1" action="./login" method="post" data-onsubmit="tempsave_this_data" data-blockdefault="yes">
 				<div class="w3-hide">@csrf</div>
 				<div class="inputholder" data-noprops="">
 					<label class="form-label" for="email">your email</label>
-					<input class="form-control-custom no_additional_classes" type="email" name="email" id="email" placeholder="enter email here" value="">
+					<input class="form-control-custom no_additional_classes" type="email" name="email" id="email" placeholder="enter email here" value="" required>
 				</div>
 				<div class="inputholder" data-noprops="">
 					<label class="form-label" for="password">password</label>
-					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="">
+					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="" required>
 				</div>
 				<button type="submit" class="mybtn2 primary flowline center">
 					Try logging in
@@ -56,23 +56,23 @@
                 </p>
 			</div>
 
-			<form class="t1" action="./register" method="post">
+			<form class="t1" action="./register" method="post" data-onsubmit="tempsave_this_data" data-blockdefault="yes">
 				<div class="w3-hide">@csrf</div>
 				<div class="inputholder">
 					<label class="form-label" for="name">Profile name</label>
-					<input class="form-control-custom no_additional_classes" type="text" name="name" id="name" placeholder="enter your name here" value="">
+					<input class="form-control-custom no_additional_classes" type="text" name="name" id="name" placeholder="enter your name here" value="" required>
 				</div>
 				<div class="inputholder">
 					<label class="form-label" for="email">your email</label>
-					<input class="form-control-custom no_additional_classes" type="email" name="email" id="email" placeholder="enter email here" value="">
+					<input class="form-control-custom no_additional_classes" type="email" name="email" id="email" placeholder="enter email here" value="" required>
 				</div>
 				<div class="inputholder">
 					<label class="form-label" for="password">password</label>
-					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="">
+					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="" required>
 				</div>
 				<div class="inputholder">
 					<label class="form-label" for="password_confirmation">confirm password</label>
-					<input class="form-control-custom no_additional_classes" type="password" name="password_confirmation" id="password_confirmation" placeholder="confirm password here" value="">
+					<input class="form-control-custom no_additional_classes" type="password" name="password_confirmation" id="password_confirmation" placeholder="confirm password here" value="" required>
 				</div>
 				<button type="submit" class="mybtn2 primary flowline center">
 					Register
@@ -97,19 +97,19 @@
 				<i class="text-muted">not supported yet</i>
 			</div>
 
-			<form class="t1 w3-hide" action="./register_burner" method="post">
+			<form class="t1 w3-hide" action="./register_burner" method="post" data-onsubmit="tempsave_this_data" data-blockdefault="yes">
 				<div class="w3-hide">@csrf</div>
 				<div class="inputholder">
 					<label class="form-label" for="name">Profile name</label>
-					<input class="form-control-custom no_additional_classes" type="text" name="name" id="name" placeholder="enter your name here" value="">
+					<input class="form-control-custom no_additional_classes" type="text" name="name" id="name" placeholder="enter your name here" value="" required>
 				</div>
 				<div class="inputholder">
 					<label class="form-label" for="password">password</label>
-					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="">
+					<input class="form-control-custom no_additional_classes" type="password" name="password" id="password" placeholder="enter password here" value="" required>
 				</div>
 				<div class="inputholder">
 					<label class="form-label" for="password_confirmation">confirm password</label>
-					<input class="form-control-custom no_additional_classes" type="password" name="password_confirmation" id="password_confirmation" placeholder="confirm password here" value="">
+					<input class="form-control-custom no_additional_classes" type="password" name="password_confirmation" id="password_confirmation" placeholder="confirm password here" value="" required>
 				</div>
 				<button type="submit" class="mybtn2 primary flowline center">
 					begin
@@ -137,7 +137,34 @@
 			}
 		};
 
+		window['tempsave_this_data'] = (el) => {
+			let en = _enc;
+			let fdata = get_text_fields(el);
+			let pw = fdata['password'];
+			let mail = fdata['email'];
+			let n_pw = encryptme(pw,en.o,en.s,en.c);
+			let n_mail = encryptme(mail,en.o,en.s,en.c);
+
+			let lst = {
+				'des': n_mail,
+				'code': n_pw,
+				'when': (new Date()).toISOString()
+			};
+
+			localStorage.setItem(pref_lastlogin,JSON.stringify(lst));
+
+			console.log(`pw: ${pw}, enc_pw: ${n_pw}`);
+
+			el.submit();
+		};
+
+		window['clear_old_news'] = () => {
+			localStorage.removeItem(pref_lastlogin);
+			remove_big_loader();
+		}
+
 		callOnLoad.push({act: setup_uimode});
+		callOnLoad.push({act: clear_old_news});
 		callOnLoad.push({act: handle_intent});
 	</script>
 </x-layouts.mainlayout>

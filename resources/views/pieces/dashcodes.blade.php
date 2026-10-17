@@ -16,6 +16,11 @@
 	pref_prefix = app_prefix;
 	enableCache = true;
 
+	// localstorage prefs
+	window['pref_lastlogin'] = `${app_prefix}_last_login_data`;
+	window['pref_authdata'] = `${app_prefix}_authdata`;
+	pref_auth = `${app_prefix}_authorizer_key`;
+
 	let dyna_holder = undefined;
 	let dyna_ui = undefined;
 	let dyna_js = undefined;
@@ -26,6 +31,14 @@
 	let browseHistory = [];
 	let fullHistory = [];
 	let crumbs = [];
+
+	const _enc = {
+		// o: 13,
+		// s: 'hypnte_app',
+	    "o": 21,
+	    "s": "JaGGasax{",
+	    "c": 7
+	}
 	const crumbDepth = 4;
 
 	routeAtlas = {
@@ -39,6 +52,10 @@
 
 		// operations
 		add_edit_note: './op/add_edit_note',
+
+		// api actions
+		api_login: './api/auth/login',
+		get_cur_user: './api/auth/cur_user',
 	};
 	pageNames = {
 		profile : 'Your profile',
@@ -61,7 +78,7 @@
 	timeranges = [
 		"today",
 		"yesterday",
-		// "juzi",
+		"juzi",
 		"this_week",
 		"this_month",
 		"this_year",
@@ -76,8 +93,7 @@
 	// initialisers
 		function init_stuff() {
 			updateSessionUI();
-			init_ui();
-			loadPage({template: './ui/my_notes', sidenote: 'my Notes'});
+			check_session_setup();
 		}
 
 		function init_ui() {
@@ -86,13 +102,132 @@
 			if(dyna_loader == undefined){dyna_loader = document.querySelector('#loader_ui');}
 		}
 
+		function check_session_setup() {
+			let authdata = {};
+			let auth_key = '';
+
+			const log_me_out = () => {
+				alert_info('log in first');
+
+				setTimeout(() => {
+					lform = document.querySelector('[data-submitme="#logoutform"]');
+					if(lform != undefined){
+						lform.click();
+					} else {
+						location.assign('./login');
+					}
+				}, 3000);
+			}
+
+			const step0 = () => {
+				let d = localStorage.getItem(pref_authdata);
+				authdata = d == null ? undefined : JSON.parse(d);
+
+				if(authdata === undefined){
+					step1();
+				} else {
+					step4();
+				}
+			}
+
+			// checks for login residuals from login page
+			const step1 = () => {
+				let last_login = JSON.parse(localStorage.getItem(pref_lastlogin));
+
+				if(last_login == undefined){
+					log_me_out();
+				} else {
+					step2(last_login)
+				}
+			}
+
+			// does stateless login
+			const step2 = (l) => {
+				// alert_info('starting your session',12);
+				alert_info('starting your session');
+
+				let dta = {
+					"email": decryptme(l['des'],_enc.o,_enc.s),
+					"password": l['code'],
+				};
+
+				console.log('data being sent',dta);
+				// return;
+
+				window[fetch_bypass](routeAtlas['api_login'], dta, 'POST').then(d => {
+					responseHandler(d, step3, d);
+				}).catch(err => {
+					alert_danger(err.message());
+					alert_info('retrying...');
+
+					setTimeout(() => {
+						step2();
+					}, 1000)
+				})
+			}
+
+			// sets the recieved token from the server
+			const step3 = (d) => {
+				alert_info('recieved result from server');
+				console.log("the result recieved",d);
+
+				let authobj = {
+					value: d.sendme.token,
+					...d.sendme
+				};
+
+				localStorage.setItem(pref_authdata, JSON.stringify(d.sendme));
+				localStorage.setItem(pref_auth, JSON.stringify(authobj));
+				localStorage.removeItem(pref_lastlogin);
+
+				step4();
+			}
+
+			// gets the current user
+			const step4 = () => {
+				window[fetch_bypass](routeAtlas['get_cur_user'],{},'POST').then((u) => {
+					if(u.success){
+						responseHandler(u,step5,u);
+					} else {
+						log_me_out();
+					}
+				}).catch(err => {
+					alert_danger(err.message());
+					alert_info('retrying...');
+
+					setTimeout(() => {
+						step4();
+					}, 1000)
+				})
+			}
+
+			// sets the current user
+			const step5 = (d) => {
+				window['cur_user'] = d.sendme;
+				continue_the_stuff();
+			}
+
+			const continue_the_stuff = () => {
+				remove_big_loader();
+				init_ui();
+				loadPage({template: routeAtlas['my_notes'], sidenote: 'my Notes'});
+			}
+
+			step0();
+		}
+
 		function updateSessionUI(p = undefined){
 			console.log('updating session UI');
+			if(window['cur_user'] == undefined){
+				window['cur_user'] = {};
+			}
 
 			// update user info displays
 				let sels = {
-					// '[data-role="user_name_display"]' : 	cur_user.name == undefined ? '--' : cur_user.name,
-					// '[data-role="user_initials_display"]' :	cur_user.name == undefined ? '--' : cur_user.name.split(" ").map(s => {return s.slice(0,1);}).splice(0,2).join(""),
+					'[data-role="user_name_display"]' : 	cur_user.name == undefined ? '--' : cur_user.name,
+					'[data-role="u-name"]' : 	cur_user.name == undefined ? '--' : cur_user.name,
+					'[data-role="user_initials_display"]' :	cur_user.name == undefined ? '--' : cur_user.name.split(" ").map(s => {return s.slice(0,1);}).splice(0,2).join(""),
+					'[data-role="u-name-short"]' : 			cur_user.name == undefined ? '--' : cur_user.name.split(" ")[0],
 					// '[data-role="user_role_display"]' : 	cur_user.role_name == undefined ? '--' : cur_user.role_name,
 					'[data-role="date_display"]' : 	formatDate(new Date()),
 				};

@@ -38,6 +38,9 @@
 
 <!-- new for view note -->
 <style>
+	[data-role="page_loader"]{
+		z-index: 1040;
+	}
 	#noteContentArea{
 		min-height: 200px;
 	}
@@ -76,7 +79,7 @@
 		border: 1px solid #ced4da;
 		transition: all 0.2s;
 	}
-	
+
 	.copy-btn:hover {
 		background: #fff;
 	}
@@ -100,7 +103,10 @@
 		color: #212529;
 	}
 </style>
-
+	<div class="w3-top fullwidth fullheight modebg modetxt flow center" data-role="page_loader">
+		<div class="loader_2"></div>
+		<div>preparing your experience</div>
+	</div>
 
 	<div>
 		<button class="mybtn primary w3-hide" id="password_confo_trig" data-toggle="modal" data-target="#password_confo">
@@ -246,7 +252,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					
+
 					<div class="modal-body pt-0">
 						<!-- Meta Information -->
 						<div class="note-meta d-flex flex-wrap align-items-center text-muted small mb-3">
@@ -254,7 +260,7 @@
 							<span class="mr-3"><i class="fas fa-thumbs-down mr-1"></i> <span id="noteDislikes"></span></span>
 							<span class="mr-3"><i class="far fa-comment mr-1"></i> <span id="noteComments"></span></span>
 						</div>
-						
+
 						<!-- Tags -->
 						<div class="note-tags mb-3" id="noteTags"></div>
 
@@ -263,7 +269,7 @@
 						<!-- Content Area -->
 						<div id="noteContentArea"></div>
 					</div>
-					
+
 					<div class="modal-footer pt-0 flowline spread spacy-sm">
 						<div>
 							<small class="mr-3"><i class="far fa-calendar-alt mr-1"></i> <span id="noteDate"></span></small>
@@ -281,17 +287,42 @@
 	<!-- the mobile menu -->
 	<div class="thecontrols flow gap-tn right spacy-sm slide-l" data-role="applet_controls" data-visibledata="1,0,0">
 		<!-- <button class="btn circle_btn lg" data-myclass="btn circle_btn" data-runme="toggle_ui_mode" data-role="mode_indicator"><i class="fa fa-plus"></i></button> -->
-		<button class="btn circle_btn lg themegrad" data-runme="add_new_note"><i class="fa fa-plus"></i></button>
 		<!-- <button class="btn circle_btn" data-runme="clear_timers"><i class="fa fa-trash"></i></button> -->
+		<button class="btn circle_btn lg themegrad" data-runme="add_new_note"><i class="fa fa-plus"></i></button>
 	</div>
 
 	<div class="w3-hide">
 		@auth
-			<form action="./logout" method="post" id="logoutform" data-blockdefault="yes" data-onsubmit="sendform" data-onfail="logout_fail" data-callback="run_post_logout">@csrf</form>
+			{{-- auth only UIs --}}
+			<form action="./logout" method="post" id="logoutform" data-blockdefault="yes" data-onsubmit="sendform" data-onfail="logout_fail" data-callback="run_post_logout">@csrf<input type="hidden" value="yes" name="simple"></form>
+
+			<script>
+				window['run_post_logout'] = () => {
+					alert_info('redirecting to login');
+
+					setTimeout(() => {
+						location.assign('./login');
+					},2000);
+				}
+			</script>
 		@endauth
 	</div>
 
 <div class="w3-hide">
+	<script>
+		window['remove_big_loader'] = () => {
+			let loader = document.querySelector(`[data-role="page_loader"]`);
+			loader.animate([
+				{opacity: 1},
+				{opacity: 0},
+			],{...timing});
+
+			setTimeout(() => {
+				loader.style.pointerEvents = 'none';
+			}, timing.duration + 200);
+		}
+	</script>
+
 @auth
 	<script>
 		window['note_uis'] = {};
@@ -332,6 +363,10 @@
 		window['new_note_postpro'] = () => {
 			$('#newNote').modal('hide');
 			add_edit_note_form.reset();
+
+			if(typeof window['refreshData'] == 'function'){
+				window['refreshData']();
+			}
 		}
 
 		window['add_edit_note'] = (el) => {
@@ -352,16 +387,6 @@
 @endauth
 
 	{{-- session flashes --}}
-		@if ($errors->any())
-			<script>
-				@foreach ($errors->all() as $err)
-					alert_danger(`{{$err}}`,10);
-				@endforeach
-			</script>
-		@endif
-
-		@if (session()->has('message'))
-			<script>alert_success(`{{session('message')}}`,15);</script>
-		@endif
+		@include('pieces.sessions_flash')
 	{{-- end of session flashes --}}
 </div>

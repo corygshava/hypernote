@@ -37,8 +37,8 @@
 		// require_once __DIR__.'/pieces/_dashcodes.php';
 	?>
 
-    @include('pieces.commons')
-    @include('pieces.dashcodes')
+    {{-- @include('pieces.commons') --}}
+    {{-- @include('pieces.dashcodes') --}}
 
 	<script>
 		callOnLoad.push({act: setup_uimode});

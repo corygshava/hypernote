@@ -28,7 +28,7 @@
 				<div class="imgstandin">
 					<b class="fa fa-user-tie"></b>
 				</div>
-				<span class="d-none d-md-block" data-role="user_name_display">{{ auth()->user()->name }}</span>
+				<span class="d-none d-md-block" data-role="user_name_display">--</span>
 				<i class="fa fa-caret-down"></i>
 			</div>
 			<div class="dropdown-menu dropdown-menu-right nopadding nooverflow w3-animate-opacity themeround realign themeshadow" aria-labelledby="userOpsDropper" style="margin-top: 12px;border: none;">

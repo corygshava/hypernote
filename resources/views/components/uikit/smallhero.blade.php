@@ -12,11 +12,11 @@
 				<div class="flowline gap-sm overflow mt-4 w3-hide_" data-role="tabbtns">
 					<button class="mybtn2 sm secondary" data-runme="menu_op" data-myid="0" data-link="defined:profile" data-label="defined:profile">
 						<i data-myicon="profile"></i>
-						<span>my profile</span>
+						<span>your profile</span>
 					</button>
 					<button class="mybtn2 sm primary" data-runme="menu_op" data-myid="1" data-link="defined:my_notes" data-label="defined:my_notes">
 						<i data-myicon="my_notes"></i>
-						<span>my notes</span>
+						<span>your notes</span>
 					</button>
 					<button class="mybtn2 sm secondary" data-runme="menu_op" data-myid="2" data-link="defined:my_feed" data-label="defined:my_feed">
 						<i data-myicon="my_feed"></i>

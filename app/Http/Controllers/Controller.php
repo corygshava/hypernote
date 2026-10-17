@@ -56,6 +56,13 @@ abstract class Controller{
 		"runlog" => []
 	];
 
+	// misc
+	public static $encdata = [
+		"o" => 21,
+		"s" => "JaGGasax{",
+		"c" => 7,
+	];
+
 	// shared methods start
 	public static function mekRandomString($charcount = 7, $useNums = true, $useSymbols = false) {
 		// setup character sets
@@ -697,7 +704,7 @@ abstract class Controller{
 
 		if(self::ili()){
 			$perms = self::getmypermissions();
-            $outres = in_array(strtoupper($perm),$perms);
+			$outres = in_array(strtoupper($perm),$perms);
 		}
 
 		return $outres;
@@ -817,7 +824,7 @@ abstract class Controller{
 		}
 	}
 
-    // misc utilities
+	// misc utilities
 	public function log_my_payload(Request $req){
 		$res = $this->dftres;
 		$alldata = $req->all();
@@ -895,7 +902,7 @@ abstract class Controller{
 
 		return response()->json($res);
 	}
-    public static function log_payload($entry = 'empty_purpose',$fname = null,$usedate = true){
+	public static function log_payload($entry = 'empty_purpose',$fname = null,$usedate = true){
 		$fl = new FileopsController();
 		$tdate = $usedate ? "[".date('y_m_d')."] " : '';
 		$fname = $fname == null ? 'payloads' : $fname;
@@ -929,8 +936,9 @@ abstract class Controller{
 		return $fl::safewrite_txt($fpath,$tosave,true,24);
 	}
 
-    public static function verifyPassword($pw,&$rl = null,$urec = null){
-		$decrypted_pw = EncController::decryptme($pw,4,'cwaizy',19);
+	public static function verifyPassword($pw,&$rl = null,$urec = null){
+		$enc = self::$encdata;
+		$decrypted_pw = EncController::decryptme($pw,$enc['o'],$enc['s']);
 		$rl = $decrypted_pw;
 
 		if($urec == null){
@@ -938,7 +946,7 @@ abstract class Controller{
 		} else {
 			return Hash::check($decrypted_pw,$urec->password);
 		}
-    }
+	}
 
 	public static function getPreviousDay(string $range): array{
 		if (self::isDate($range)) {
